@@ -2,7 +2,6 @@
 
 let 
     defaultPkgs = with pkgs; [
-        
     ];
 
     shellPkgs = with pkgs; [
@@ -24,6 +23,10 @@ let
 in
 {
     programs.home-manager.enable = true;
+    
+    nixpkgs.config = {
+        allowUnfree = true;
+    };
 
     home = {
         username = "floride";
@@ -38,6 +41,7 @@ in
     };
 
     imports = [
-
+        # ./programs/alacritty/default.nix
+        ./programs/nvim/default.nix
     ];
 }
