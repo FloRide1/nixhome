@@ -6,6 +6,10 @@ This is my nix home-manager
 ```sh
 ln -sf PATH_OF_THE_SCRIPT_FROM_ROOT/nixpkgs $HOME/.config
 ```
+Once install:
+```sh
+home-manager switch
+```
 
 ## Links
 
