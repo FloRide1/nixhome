@@ -5,6 +5,9 @@ let
     ];
 
     shellPkgs = with pkgs; [
+        # nvim
+        nodejs
+
         # Font
         meslo-lgs-nf
 
