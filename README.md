@@ -11,5 +11,13 @@ Once install:
 home-manager switch
 ```
 
-## Links
+### Fish
+```sh
+curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+fisher install ilancosman/tide
+```
 
+## Links
+- [First Tutorial](https://ghedam.at/24353/tutorial-getting-started-with-home-manager-for-nix)
+- [Epita Inspiration](https://github.com/Vinetos/nix-vinetos)
+- [Home Inspiration](https://github.com/an-nihil00/nixhome)
