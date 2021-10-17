@@ -14,9 +14,10 @@
                 size = 10.0;
             };
 
-            # shell = {
-                # program = "${pkgs.zsh}/bin/zsh";
-            # };
+            shell = {
+                program = "${pkgs.fish}/bin/fish";
+                args = [ "--init-command" "echo; neofetch; echo" ];
+            };
 
             colors = {
                 primary = {

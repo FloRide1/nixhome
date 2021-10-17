@@ -10,6 +10,7 @@ let
 
         # Shell
         any-nix-shell
+        fishPlugins.foreign-env
 
         # Utility
         htop
@@ -43,5 +44,6 @@ in
     imports = [
         # ./programs/alacritty/default.nix
         ./programs/nvim/default.nix
+        ./programs/fish/default.nix
     ];
 }
