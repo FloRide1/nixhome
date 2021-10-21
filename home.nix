@@ -37,7 +37,7 @@ in
         homeDirectory = "/home/floride";
 
         packages = defaultPkgs ++ shellPkgs;
-        stateVersion = "21.11";
+        stateVersion = "21.05";
     };
 
     home.keyboard = {
