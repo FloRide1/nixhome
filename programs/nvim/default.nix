@@ -254,6 +254,7 @@
             vim-clang-format
             vim-gitgutter
             ultisnips
+            vimtex
             #ayu-vim
             #nerdtree
             #fzf-vim
