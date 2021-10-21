@@ -142,7 +142,7 @@
             set softtabstop=-1
 
             " Insert spaces instead of tabs
-            set expandtab
+            " set expandtab
 
             " When tabbing manually, use shiftwidth instead of tabstop and softtabstop
             set smarttab
