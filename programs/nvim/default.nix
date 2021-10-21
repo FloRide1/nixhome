@@ -5,6 +5,24 @@
         enable = true;
         vimAlias = true;
         extraConfig = ''
+
+            """"""""""""""""""""""""""""""""""""""""""""""""""
+            " Description:
+            "   This is the .vimrc file
+            "
+            " Maintainer:
+            "	Florian 'FloRide' Reimat
+            "
+            " Complete_version:
+            "   You can find the complete configuration,
+            "   including all the plugins used, here:
+            "   https://github.com/FloRide1/dotfiles
+            "
+            " Acknowledgements:
+            "   Several elements of this .vimrc come from Pierre Bourdon's config
+            "
+            """"""""""""""""""""""""""""""""""""""""""""""""""
+
             " Enable filetype detection for plugins and indentation options
             filetype plugin indent on
 
@@ -174,9 +192,15 @@
 
             let g:termdebug_popup = 0
             let g:termdebug_wide = 163
+
             """"""""""""""""""""""""""""""""""""""""""""""""""
             " Plugin mappings and options
             """"""""""""""""""""""""""""""""""""""""""""""""""
+            " Ulti Snips
+            let g:UltiSnipsExpandTrigger="<tab>"
+            let g:UltiSnipsJumpForwardTrigger="<tab>"
+            let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+            
             " Git Gutter
             let g:gitgutter_sign_added = '✚'
             let g:gitgutter_sign_modified = '✹'
@@ -229,6 +253,7 @@
             vim-devicons
             vim-clang-format
             vim-gitgutter
+            ultisnips
             #ayu-vim
             #nerdtree
             #fzf-vim
