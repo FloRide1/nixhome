@@ -262,6 +262,8 @@
             coc-pairs
             coc-yaml
             coc-clangd
+			which-key-nvim
+			nvim-colorizer-lua
         ];
     };
 }
