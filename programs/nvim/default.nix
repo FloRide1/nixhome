@@ -179,6 +179,7 @@
 
 			" Run make silently, then skip the 'Press ENTER to continue'
 			noremap <leader>m :silent! :make! \| :redraw!<cr>
+			noremap <leader>c :silent! :make! check \| :redraw!<cr>
 
 			" Map ESC to exit terminal mode
 			tnoremap <Esc> <C-\><C-n>
