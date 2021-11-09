@@ -124,6 +124,10 @@
 
 			" Don't highlight matched strings
 			set nohlsearch
+			
+			" Doxygen
+			autocmd BufRead,BufNewFile *.h set filetype=c.doxygen
+
 
 			""""""""""""""""""""""""""""""""""""""""""""""""""
 			" Indentation options
