@@ -13,7 +13,6 @@ let
 
         # Shell
         any-nix-shell
-        fishPlugins.foreign-env
 
         # Utility
         htop
@@ -21,7 +20,11 @@ let
         neofetch
         lsd
         bat
-        delta
+
+		# Man
+		clang-manpages
+		man-pages
+		posix_man_pages
     ];
 
 in
@@ -48,5 +51,6 @@ in
         # ./programs/alacritty/default.nix
         ./programs/nvim/default.nix
         ./programs/fish/default.nix
+		./programs/git/default.nix
     ];
 }
