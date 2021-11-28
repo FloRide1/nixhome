@@ -18,9 +18,6 @@
 			"   including all the plugins used, here:
 			"   https://github.com/FloRide1/dotfiles
 			"
-			" Acknowledgements:
-			"   Several elements of this .vimrc come from Pierre Bourdon's config
-			"
 			""""""""""""""""""""""""""""""""""""""""""""""""""
 
 			" Enable filetype detection for plugins and indentation options
