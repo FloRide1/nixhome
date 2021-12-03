@@ -278,6 +278,8 @@
 			coc-clangd
 			which-key-nvim
 			nvim-colorizer-lua
+			vim-fugitive
+			vim-eunuch
 		];
 	};
 }
