@@ -16,7 +16,7 @@
 			" Complete_version:
 			"   You can find the complete configuration,
 			"   including all the plugins used, here:
-			"   https://github.com/FloRide1/dotfiles
+			"   https://github.com/FloRide1/nixhome
 			"
 			""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -86,7 +86,7 @@
 			set wrap
 
 			" Wrap on column 80
-			set textwidth=79
+			" set textwidth=79
 
 			" Disable preview window on completion
 			set completeopt=longest,menuone
