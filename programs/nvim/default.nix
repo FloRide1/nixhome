@@ -201,6 +201,11 @@
 			nnoremap <silent> <C-c> :Clear<CR>
 			nnoremap <silent> <F5> :Continue<CR>
 
+			" Fugitive + Merge
+			nmap <leader>hl :Gvdiffsplit!<CR>
+			nmap <C-h> :diffget //2<CR>
+			nmap <C-l> :diffget //3<CR>
+
 			""""""""""""""""""""""""""""""""""""""""""""""""""
 			" Persistence options
 			""""""""""""""""""""""""""""""""""""""""""""""""""
