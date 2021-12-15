@@ -206,6 +206,10 @@
 			nmap <C-h> :diffget //2<CR>
 			nmap <C-l> :diffget //3<CR>
 
+			" Telescope + Find
+			nmap <C-f> :Telescope find_files<CR>
+			nmap <C-g> :Telescope live_grep<CR>
+
 			""""""""""""""""""""""""""""""""""""""""""""""""""
 			" Persistence options
 			""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -281,6 +285,7 @@
 			coc-pairs
 			coc-yaml
 			coc-clangd
+			telescope-nvim
 			which-key-nvim
 			nvim-colorizer-lua
 			vim-fugitive
