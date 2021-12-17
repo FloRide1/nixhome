@@ -105,6 +105,7 @@
 
 			" Gdb Config
 			let g:termdebug_wide=1
+			let g:termdebug_useFloatingHover = 0
 
 			""""""""""""""""""""""""""""""""""""""""""""""""""
 			" Search options
@@ -186,7 +187,7 @@
 
 			imap <C-w> <C-o><C-w>
 
-			map + <C-W>+
+			map = <C-W>+
 			map - <C-W>-
 			map <M-.> <C-W><
 			map <M-,> <C-W>>
@@ -197,9 +198,12 @@
 
 			" Map ESC to exit terminal mode
 			tnoremap <Esc> <C-\><C-n>
+
+			nnoremap <silent> <C-n> :Over<CR>
+			nnoremap <silent> <C-s> :Step<CR>
 			nnoremap <silent> <C-b> :Break<CR>
 			nnoremap <silent> <C-c> :Clear<CR>
-			nnoremap <silent> <F5> :Continue<CR>
+			nnoremap <silent> <A-c> :Continue<CR>
 
 			" Fugitive + Merge
 			nmap <leader>hl :Gvdiffsplit!<CR>
