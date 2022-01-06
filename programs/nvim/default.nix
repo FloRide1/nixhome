@@ -294,6 +294,9 @@
 			nvim-colorizer-lua
 			vim-fugitive
 			vim-eunuch
+
+			vim-dadbod
+			vim-dadbod-ui
 		];
 	};
 }
