@@ -1,5 +1,21 @@
-{ pkgs, ... }:
+{ config, pkgs, lib,  ... }:
 
+let
+
+# installs a vim plugin from git with a given tag / branch
+	pluginGit = ref: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
+		pname = "${lib.strings.sanitizeDerivationName repo}";
+		version = ref;
+		src = builtins.fetchGit {
+			url = "https://github.com/${repo}.git";
+			ref = ref;
+		};
+	};
+
+	# always installs latest version
+	plugin = pluginGit "HEAD";
+
+in
 {
 	programs.neovim = {
 		enable = true;
@@ -274,9 +290,8 @@
 			let g:airline_theme = 'tender'
 			'';
 
-
-
-		plugins = with pkgs.vimPlugins; [ 
+		plugins = with pkgs.vimPlugins; 
+		[ 
 			vim-airline
 			vim-airline-themes
 			tender-vim
@@ -294,9 +309,10 @@
 			nvim-colorizer-lua
 			vim-fugitive
 			vim-eunuch
-
 			vim-dadbod
 			vim-dadbod-ui
+
 		];
+		# Exemple of vim-plug: (plugin "starcraftman/vim-eclim")
 	};
 }
