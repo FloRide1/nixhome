@@ -265,6 +265,14 @@ in
 			" Symbol renaming.
 			nmap <c-r>r <Plug>(coc-rename)
 
+			xmap <leader>a  <Plug>(coc-codeaction-selected)
+			nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+			" Remap keys for applying codeAction to the current buffer.
+			nmap <leader>g  <Plug>(coc-codeaction)
+			" Apply AutoFix to problem on the current line.
+			nmap <leader>f  <Plug>(coc-fix-current)
+
 			" Use K to show documentation in preview window.
 			nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -311,7 +319,6 @@ in
 			vim-eunuch
 			vim-dadbod
 			vim-dadbod-ui
-
 		];
 		# Exemple of vim-plug: (plugin "starcraftman/vim-eclim")
 	};
