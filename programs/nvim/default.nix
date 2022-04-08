@@ -1,4 +1,4 @@
-{ config, pkgs, lib,  ... }:
+{ config, pkgs, lib, vimUtils,  ... }:
 
 let
 
@@ -263,39 +263,85 @@ in
 			"inoremap <silent><expr> <c-space> coc#refresh()
 
 			" Symbol renaming.
-			nmap <c-r>r <Plug>(coc-rename)
+			"nmap <c-r>r <Plug>(coc-rename)
 
-			xmap <leader>a  <Plug>(coc-codeaction-selected)
-			nmap <leader>a  <Plug>(coc-codeaction-selected)
+			"xmap <leader>a  <Plug>(coc-codeaction-selected)
+			"nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 			" Remap keys for applying codeAction to the current buffer.
-			nmap <leader>g  <Plug>(coc-codeaction)
+			"nmap <leader>g  <Plug>(coc-codeaction)
 			" Apply AutoFix to problem on the current line.
-			nmap <leader>f  <Plug>(coc-fix-current)
+			"nmap <leader>f  <Plug>(coc-fix-current)
 
 			" Use K to show documentation in preview window.
-			nnoremap <silent> K :call <SID>show_documentation()<CR>
+			"nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-			function! s:show_documentation()
-			if (index(['vim','help'], &filetype) >= 0)
-				execute 'h '.expand('<cword>')
-					elseif (coc#rpc#ready())
-					call CocActionAsync('doHover')
-			else
-				execute '!' . &keywordprg . " " . expand('<cword>')
-					endif
-					endfunction
+			"function! s:show_documentation()
+			"	if (index(['vim','help'], &filetype) >= 0)
+			"		execute 'h '.expand('<cword>')
+			"	elseif (coc#rpc#ready())
+			"		call CocActionAsync('doHover')
+			"	else
+			"		execute '!' . &keywordprg . \" \" . expand('<cword>')
+			"	endif
+			"endfunction
 
-					" Highlight the symbol and its references when holding the cursor.
-					autocmd CursorHold * silent call CocActionAsync('highlight')
+			" Highlight the symbol and its references when holding the cursor.
+			"autocmd CursorHold * silent call CocActionAsync('highlight')
 
-					set statusline^=%{coc#status()}%{get(b:,'coc_current_function','\')}
+			"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','\')}
 			""""""""""""""""""""""""""""""""""""""""""""""""""
 			" Theme
 			""""""""""""""""""""""""""""""""""""""""""""""""""
 			colorscheme tender
 			let g:airline_powerline_fonts = 1
 			let g:airline_theme = 'tender'
+
+			""""""""""""""""""""""""""""""""""""""""""""""""""
+			" Lua
+			""""""""""""""""""""""""""""""""""""""""""""""""""
+			lua<<EOF
+			local on_attach = function(client, bufnr)
+				local function buf_set_keymap(...)
+				vim.api.nvim_buf_set_keymap(bufnr, ...)
+			end
+			local opts = { noremap = true, silent = true }
+				buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+				--[[
+				# buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+				# buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+				# buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+				# buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+				# buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+				# buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+				# buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+				# buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+				# buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+				# buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+				# buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+				# buf_set_keymap("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
+				# buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
+				# buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+				# buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+				# buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+				]]
+			end
+			local lsp_installer = require("nvim-lsp-installer")
+			lsp_installer.on_server_ready(function(server)
+				local opts = {}
+				opts.on_attach = on_attach
+				server:setup(opts)
+				vim.cmd [[ do User LspAttachBuffers ]]
+			end)
+			lsp_installer.settings({
+				ui = {
+					icons = {
+						server_installed = "✓",
+						server_pending = "➜",
+						server_uninstalled = "✗"
+					}
+				}
+			})
 			'';
 
 		plugins = with pkgs.vimPlugins; 
@@ -308,10 +354,10 @@ in
 			vim-gitgutter
 			ultisnips
 			vimtex
-			coc-nvim
-			coc-pairs
-			coc-yaml
-			coc-clangd
+			# coc-nvim
+			# coc-pairs
+			# coc-yaml
+			# coc-clangd
 			telescope-nvim
 			which-key-nvim
 			nvim-colorizer-lua
@@ -319,6 +365,8 @@ in
 			vim-eunuch
 			vim-dadbod
 			vim-dadbod-ui
+			(plugin "neovim/nvim-lspconfig")
+			(plugin "williamboman/nvim-lsp-installer")
 		];
 		# Exemple of vim-plug: (plugin "starcraftman/vim-eclim")
 	};
