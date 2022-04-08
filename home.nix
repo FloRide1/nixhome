@@ -51,6 +51,7 @@ in
         # ./programs/alacritty/default.nix
         ./programs/nvim/default.nix
         ./programs/fish/default.nix
+        ./programs/zsh/default.nix
 		./programs/git/default.nix
     ];
 }
