@@ -19,10 +19,6 @@ in
 		enable = true;
 		vimAlias = true;
 
-		# https://github.com/breuerfelix/nixos/blob/main/shell/vim/init.nix
-		extraConfig = builtins.concatStringsSep "\n" [
-			(lib.strings.fileContents ./init.vim)
-		];
 		plugins = with pkgs.vimPlugins; 
 		[ 
 			vim-airline
@@ -44,6 +40,10 @@ in
 			(plugin "williamboman/nvim-lsp-installer")
 			(plugin "puremourning/vimspector")
 		];
-		# Exemple of vim-plug: (plugin "starcraftman/vim-eclim")
+
+		# https://github.com/breuerfelix/nixos/blob/main/shell/vim/init.nix
+		extraConfig = builtins.concatStringsSep "\n" [
+			(lib.strings.fileContents ./init.vim)
+		];
 	};
 }

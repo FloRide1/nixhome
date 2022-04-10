@@ -281,3 +281,5 @@ lsp_installer.settings({
 		}
 	}
 })
+EOF
+
