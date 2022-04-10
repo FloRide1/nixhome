@@ -258,38 +258,21 @@ in
 
 			inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 			inoremap <C-Space> <C-n>
+			
+			" Lsp
+			nnoremap <silent> K			<cmd>lua vim.lsp.buf.hover()<CR>
+			nnoremap <silent> gd		<cmd>lua vim.lsp.buf.definition()<CR>
+			nnoremap <silent> gD		<cmd>lua vim.lsp.buf.declaration()<CR>
+			nnoremap <silent> gi		<cmd>lua vim.lsp.buf.implementation()<CR>
+			nnoremap <silent> <C-k>		<cmd>lua vim.lsp.buf.signature_help()<CR>
 
-			" Use <c-space> to trigger completion.
-			"inoremap <silent><expr> <c-space> coc#refresh()
+			nnoremap <silent> <C-r>r	<cmd>lua vim.lsp.buf.rename()<CR>
+			nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.code_action()<CR>
 
-			" Symbol renaming.
-			"nmap <c-r>r <Plug>(coc-rename)
+			nnoremap <silent> gr		<cmd>lua vim.lsp.buf.references()<CR>
+			nnoremap <silent> <space>e	<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+			nnoremap <silent> <space>q	<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 
-			"xmap <leader>a  <Plug>(coc-codeaction-selected)
-			"nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-			" Remap keys for applying codeAction to the current buffer.
-			"nmap <leader>g  <Plug>(coc-codeaction)
-			" Apply AutoFix to problem on the current line.
-			"nmap <leader>f  <Plug>(coc-fix-current)
-
-			" Use K to show documentation in preview window.
-			"nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-			"function! s:show_documentation()
-			"	if (index(['vim','help'], &filetype) >= 0)
-			"		execute 'h '.expand('<cword>')
-			"	elseif (coc#rpc#ready())
-			"		call CocActionAsync('doHover')
-			"	else
-			"		execute '!' . &keywordprg . \" \" . expand('<cword>')
-			"	endif
-			"endfunction
-
-			" Highlight the symbol and its references when holding the cursor.
-			"autocmd CursorHold * silent call CocActionAsync('highlight')
-
-			"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','\')}
 			""""""""""""""""""""""""""""""""""""""""""""""""""
 			" Theme
 			""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -302,30 +285,9 @@ in
 			""""""""""""""""""""""""""""""""""""""""""""""""""
 			lua<<EOF
 			local on_attach = function(client, bufnr)
-				local function buf_set_keymap(...)
-				vim.api.nvim_buf_set_keymap(bufnr, ...)
-			end
-			local opts = { noremap = true, silent = true }
-				buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-				buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-				buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-				buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-				buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-				--
-				buf_set_keymap("n", "<C-r>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-				buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-				--
-				buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-				buf_set_keymap("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
-				buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
-				--[[
-				# buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-				# buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-				# buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-				# buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-				# buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-				# buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-				]]
+					local function buf_set_keymap(...)
+					vim.api.nvim_buf_set_keymap(bufnr, ...)
+				end
 			end
 			local lsp_installer = require("nvim-lsp-installer")
 			lsp_installer.on_server_ready(function(server)
@@ -355,10 +317,6 @@ in
 			vim-gitgutter
 			ultisnips
 			vimtex
-			# coc-nvim
-			# coc-pairs
-			# coc-yaml
-			# coc-clangd
 			telescope-nvim
 			which-key-nvim
 			nvim-colorizer-lua
@@ -368,6 +326,7 @@ in
 			vim-dadbod-ui
 			(plugin "neovim/nvim-lspconfig")
 			(plugin "williamboman/nvim-lsp-installer")
+			(plugin "puremourning/vimspector")
 		];
 		# Exemple of vim-plug: (plugin "starcraftman/vim-eclim")
 	};
