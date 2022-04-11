@@ -118,14 +118,11 @@ set nohlsearch
 " Doxygen
 " autocmd BufRead,BufNewFile *.h set filetype=c.doxygen
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Indentation options
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
 " The length of a tab
-" This is for documentation purposes only,
-" do not change the default value of 8, ever.
 set tabstop=4
 
 " The number of spaces inserted/removed when using < or >
@@ -206,6 +203,24 @@ nmap <C-l> :diffget //3<CR>
 nmap <C-f> :Telescope find_files<CR>
 nmap <C-g> :Telescope live_grep<CR>
 
+" Lsp
+nnoremap <silent> K			<cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gd		<cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD		<cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gi		<cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <C-k>		<cmd>lua vim.lsp.buf.signature_help()<CR>
+
+nnoremap <silent> <C-r>r	<cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.code_action()<CR>
+
+nnoremap <silent> gr		<cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <space>e	<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <silent> <space>q	<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+
+" Others
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <C-Space> <C-n>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Persistence options
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -231,23 +246,6 @@ let g:gitgutter_sign_modified = '✹'
 let g:gitgutter_sign_removed = '-'
 let g:gitgutter_sign_removed_first_line = '-'
 let g:gitgutter_sign_modified_removed = '-'
-
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <C-Space> <C-n>
-
-" Lsp
-nnoremap <silent> K			<cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gd		<cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD		<cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gi		<cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <C-k>		<cmd>lua vim.lsp.buf.signature_help()<CR>
-
-nnoremap <silent> <C-r>r	<cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.code_action()<CR>
-
-nnoremap <silent> gr		<cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <space>e	<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nnoremap <silent> <space>q	<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Theme
