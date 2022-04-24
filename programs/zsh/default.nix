@@ -45,6 +45,7 @@
             mkdir = "mkdir -vp";
             rm = "rm -riv";
             cp = "cp -riv";
+			mv = "mv -iv";
             cat = "bat -p";
             ls = "lsd";
             tree = "lsd --tree";
