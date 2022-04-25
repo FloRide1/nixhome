@@ -42,10 +42,11 @@
             v = "nvim";
             c = "clear";
             untar = "tar -xvzf";
+            tarc = "tar -cvzf";
             mkdir = "mkdir -vp";
             rm = "rm -riv";
             cp = "cp -riv";
-			mv = "mv -iv";
+            mv = "mv -iv";
             cat = "bat -p";
             ls = "lsd";
             tree = "lsd --tree";
