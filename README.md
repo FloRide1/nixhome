@@ -22,3 +22,4 @@ home-manager switch
 - [First Tutorial](https://ghedam.at/24353/tutorial-getting-started-with-home-manager-for-nix)
 - [Home Inspiration](https://github.com/an-nihil00/nixhome)
 - [Vinetos Configuration](https://github.com/Vinetos/nix-vinetos)
+- [An Very Good Configuration Exemple](https://github.com/gvolpe/nix-config.git)
