@@ -29,6 +29,7 @@ in
 			vim-gitgutter
 			ultisnips
 			vimtex
+			nvim-treesitter
 			telescope-nvim
 			which-key-nvim
 			nvim-colorizer-lua

@@ -16,6 +16,7 @@ let
 		# nvim
 		xclip
 		ripgrep
+		fd
 
 		# Shell
 		any-nix-shell
