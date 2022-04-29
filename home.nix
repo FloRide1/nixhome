@@ -9,6 +9,7 @@ let
 		flameshot
 		steam
 		syncthing
+		nitrogen
     ];
 
     shellPkgs = with pkgs; [
@@ -39,7 +40,6 @@ let
 		man-pages
 		posix_man_pages
     ];
-
 
 in
 {
