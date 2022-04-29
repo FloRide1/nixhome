@@ -21,7 +21,12 @@ in
         modifier = "Mod4";
         bars = [];
 
-        window.border = 1;
+		window.border = 2;
+		
+		gaps = {
+			inner = 2;
+			outer = 0;
+		};
 
         keybindings = lib.mkOptionDefault {
 
@@ -53,7 +58,12 @@ in
             # Lock
             "${modifier}+x" = "exec ${pkgs.i3lock-fancy}/bin/i3lock-fancy -p -t \"System Locked Down\"";
         };
-        startup = [
+		startup = [
+		{
+			command = "${pkgs.nitrogen}/bin/nitrogen --restore &";
+			always = true;
+			notification = false;
+		}
         {
             command = "${pkgs.i3-gaps}/bin/i3-msg workspace ${ws1}";
             always = true;
