@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let 
-    desktopPkgs = with pkgs; [
+	desktopPkgs = with pkgs; [
 		discord
 		spotify
 		lxrandr
@@ -10,26 +10,27 @@ let
 		steam
 		syncthing
 		nitrogen
-    ];
+	];
 
-    shellPkgs = with pkgs; [
-        # nvim
+	shellPkgs = with pkgs; [
+		# nvim
 		xclip
+		ripgrep
 
-        # Shell
-        any-nix-shell
-        nodejs
+		# Shell
+		any-nix-shell
+		nodejs
 		gcc
 		curl
 		wget
 		delta
 
-        # Utility
-        htop
-        cheat
-        neofetch
-        lsd
-        bat
+		# Utility
+		htop
+		cheat
+		neofetch
+		lsd
+		bat
 		netcat
 		feh
 		pulsemixer
@@ -39,33 +40,38 @@ let
 		clang-manpages
 		man-pages
 		posix_man_pages
-    ];
+	];
 
 in
 {
-    programs.home-manager.enable = true;
+	programs.home-manager.enable = true;
     
-    nixpkgs.config = {
-        allowUnfree = true;
-    };
+	nixpkgs.config = {
+		allowUnfree = true;
+	};
 
-    home = {
-        username = "floride";
-        homeDirectory = "/home/floride";
+	home = {
+		username = "floride";
+		homeDirectory = "/home/floride";
 
-        packages = desktopPkgs ++ shellPkgs;
-        stateVersion = "21.05";
-    };
+		packages = desktopPkgs ++ shellPkgs;
+		stateVersion = "21.05";
+	};
 
-    home.keyboard = {
-        layout = "gb";
-    };
+	home.keyboard = {
+		layout = "gb";
+	};
 
-    imports = [
-        # ./programs/alacritty/default.nix
-        ./programs/nvim/default.nix
-        ./programs/fish/default.nix
-        ./programs/zsh/default.nix
+	imports = [
+		./programs/alacritty/default.nix
+		./programs/nvim/default.nix
+		./programs/zsh/default.nix
 		./programs/git/default.nix
+		./programs/rofi/default.nix
+
+		./services/syncthing/default.nix
+		./services/polybar/default.nix
     ];
+
+	xsession.windowManager.i3 = import ./services/i3/default.nix {inherit pkgs lib; };
 }
