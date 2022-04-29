@@ -7,7 +7,6 @@ let
 		lxrandr
 		i3lock-fancy
 		flameshot
-		steam
 		syncthing
 		nitrogen
 	];
@@ -73,6 +72,13 @@ in
 		./services/syncthing/default.nix
 		./services/polybar/default.nix
     ];
+
+	systemd.user.services.mpris-proxy = {
+		Unit.Description = "Mpris proxy";
+		Unit.After = [ "network.target" "sound.target" ];
+		Service.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
+		Install.WantedBy = [ "default.target" ];
+	};
 
 	xsession.windowManager.i3 = import ./services/i3/default.nix {inherit pkgs lib; };
 }
