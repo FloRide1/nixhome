@@ -250,9 +250,9 @@ let g:gitgutter_sign_modified_removed = '-'
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Theme
 """"""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme tender
+colorscheme purify
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'tender'
+let g:airline_theme = 'purify'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Lua

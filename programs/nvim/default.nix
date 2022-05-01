@@ -40,6 +40,7 @@ in
 			(plugin "neovim/nvim-lspconfig")
 			# (plugin "williamboman/nvim-lsp-installer")
 			(plugin "puremourning/vimspector")
+			(plugin "Metallum19/purify-vim") # Theme
 		];
 
 		# https://github.com/breuerfelix/nixos/blob/main/shell/vim/init.nix
