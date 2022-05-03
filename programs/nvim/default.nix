@@ -38,7 +38,7 @@ in
 			vim-dadbod
 			vim-dadbod-ui
 			(plugin "neovim/nvim-lspconfig")
-			# (plugin "williamboman/nvim-lsp-installer")
+			(plugin "williamboman/nvim-lsp-installer")
 			(plugin "puremourning/vimspector")
 			(plugin "Metallum19/purify-vim") # Theme
 		];
