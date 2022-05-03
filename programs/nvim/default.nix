@@ -37,6 +37,7 @@ in
 			vim-eunuch
 			vim-dadbod
 			vim-dadbod-ui
+			vim-addon-nix
 			(plugin "neovim/nvim-lspconfig")
 			(plugin "williamboman/nvim-lsp-installer")
 			(plugin "puremourning/vimspector")
