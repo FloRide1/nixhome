@@ -176,8 +176,8 @@ nmap <silent> <A-Right> :wincmd l<CR>
 
 imap <C-w> <C-o><C-w>
 
-map = <C-W>+
-map - <C-W>-
+map + <C-W>+
+map _ <C-W>-
 map <M-.> <C-W><
 map <M-,> <C-W>>
 
@@ -282,5 +282,12 @@ ui = {
 		}
 	}
 })
+
+local servers = { 'rnix' }
+for _, lsp in pairs(servers) do
+	require('lspconfig')[lsp].setup {
+		on_attach = on_attach,
+	}
+end
 EOF
 
