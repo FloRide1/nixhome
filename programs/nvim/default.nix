@@ -25,7 +25,8 @@ in
 			vim-airline-themes
 			tender-vim
 			vim-devicons
-			vim-clang-format
+			# vim-clang-format
+			neoformat
 			vim-gitgutter
 			ultisnips
 			vimtex

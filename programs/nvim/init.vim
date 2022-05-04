@@ -231,9 +231,15 @@ let g:termdebug_wide = 163
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin mappings and options
 """"""""""""""""""""""""""""""""""""""""""""""""""
+" AutoFormat
+augroup autofmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
+
 " Clang Format
-let g:clang_format#detect_style_file = 1
-let g:clang_format#auto_format = 1
+" let g:clang_format#detect_style_file = 1
+" let g:clang_format#auto_format = 1
 
 " Ulti Snips
 let g:UltiSnipsExpandTrigger="<tab>"
