@@ -9,6 +9,7 @@ let
 		flameshot
 		syncthing
 		nitrogen
+		thunderbird
 	];
 
 	shellPkgs = with pkgs; [
@@ -35,6 +36,7 @@ let
 		feh
 		pulsemixer
 		ranger
+		rnix-lsp
 
 		# Man
 		clang-manpages
