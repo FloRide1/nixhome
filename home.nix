@@ -44,25 +44,27 @@ let
 		posix_man_pages
 	];
 
-in
-{
+	npmPkgs = with pkgs.nodePackages; [
+		typescript-language-server
+		typescript
+		js-beautify
+		node2nix
+	];
+
+in {
 	programs.home-manager.enable = true;
-    
-	nixpkgs.config = {
-		allowUnfree = true;
-	};
+
+	nixpkgs.config = { allowUnfree = true; };
 
 	home = {
 		username = "floride";
 		homeDirectory = "/home/floride";
 
-		packages = desktopPkgs ++ shellPkgs;
+		packages = desktopPkgs ++ shellPkgs ++ npmPkgs;
 		stateVersion = "21.05";
 	};
 
-	home.keyboard = {
-		layout = "gb";
-	};
+	home.keyboard = { layout = "gb"; };
 
 	imports = [
 		./programs/alacritty/default.nix
