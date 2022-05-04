@@ -17,6 +17,7 @@ let
 		xclip
 		ripgrep
 		fd
+		nixfmt
 
 		# Shell
 		any-nix-shell
@@ -37,6 +38,7 @@ let
 		pulsemixer
 		ranger
 		rnix-lsp
+		clang-tools
 
 		# Man
 		clang-manpages
