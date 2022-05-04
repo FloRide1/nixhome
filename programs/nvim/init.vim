@@ -274,7 +274,7 @@ lsp_installer.on_server_ready(function(server)
 end)
 
 lsp_installer.settings({
-ui = {
+	ui = {
 		icons = {
 			server_installed = "✓",
 			server_pending = "➜",
@@ -283,7 +283,8 @@ ui = {
 	}
 })
 
-local servers = { 'rnix' }
+local servers = { 'rnix', 'tsserver' }
+
 for _, lsp in pairs(servers) do
 	require('lspconfig')[lsp].setup {
 		on_attach = on_attach,
