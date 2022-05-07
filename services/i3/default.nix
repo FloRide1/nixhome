@@ -64,6 +64,11 @@ in {
       "${modifier}+k" = "focus up";
       "${modifier}+l" = "focus right";
 
+      "${modifier}+Shift+h" = "move left";
+      "${modifier}+Shift+j" = "move down";
+      "${modifier}+Shift+k" = "move up";
+      "${modifier}+Shift+l" = "move right";
+
       # Lock
       "${modifier}+x" = ''
         exec ${pkgs.i3lock-fancy}/bin/i3lock-fancy -p -t "System Locked Down"'';
