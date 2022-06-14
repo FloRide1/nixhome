@@ -7,7 +7,7 @@ let
     lxrandr
     i3lock-fancy
     flameshot
-    syncthing
+    # syncthing
     nitrogen
     thunderbird
   ];
@@ -22,7 +22,7 @@ let
     # Shell
     any-nix-shell
     nodejs
-    gcc
+    # gcc
     curl
     wget
     delta
@@ -69,14 +69,14 @@ in {
   home.keyboard = { layout = "gb"; };
 
   imports = [
-    ./programs/alacritty/default.nix
+    # ./programs/alacritty/default.nix
     ./programs/nvim/default.nix
     ./programs/zsh/default.nix
     ./programs/git/default.nix
-    ./programs/rofi/default.nix
+    # ./programs/rofi/default.nix
 
-    ./services/syncthing/default.nix
-    ./services/polybar/default.nix
+    # ./services/syncthing/default.nix
+    # ./services/polybar/default.nix
   ];
 
   systemd.user.services.mpris-proxy = {

@@ -29,8 +29,10 @@ in {
 
     keybindings = lib.mkOptionDefault {
 
-      "${modifier}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
-      "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -modi drun -show drun";
+      "${modifier}+Return" =
+        "exec /bin/alacritty"; # "exec ${pkgs.alacritty}/bin/alacritty";
+      "${modifier}+d" =
+        "exec --no-startup-id ~/.config/rofi/bin/launcher_ribbon"; # "exec ${pkgs.rofi}/bin/rofi -modi drun -show drun";
       "${modifier}+Shift+q" = "kill";
 
       # Custom workspaces names
@@ -83,7 +85,16 @@ in {
         command = "${pkgs.i3-gaps}/bin/i3-msg workspace ${ws1}";
         always = true;
       }
-      { command = "systemctl --user restart polybar"; }
+      {
+        command = "$HOME/.config/polybar/launch.sh";
+        always = true;
+        notification = false;
+      }
+      {
+        command = ''
+          ${pkgs.xss-lock} -- ${pkgs.i3lock-fancy}/bin/i3lock-fancy -p -t "System Locked Down"'';
+        notification = false;
+      }
     ];
 
   };
