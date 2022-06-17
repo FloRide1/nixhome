@@ -118,6 +118,9 @@ set nohlsearch
 " Doxygen
 " autocmd BufRead,BufNewFile *.h set filetype=c.doxygen
 
+" Latex
+" autocmd BufRead,BufNewFile *.tex set filetype=latex
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Indentation options
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -188,11 +191,11 @@ noremap <leader>c :silent! :make! check \| :redraw!<cr>
 " Map ESC to exit terminal mode
 tnoremap <Esc> <C-\><C-n>
 
-nnoremap <silent> <C-n> :Over<CR>
-nnoremap <silent> <C-s> :Step<CR>
-nnoremap <silent> <C-b> :Break<CR>
-nnoremap <silent> <C-c> :Clear<CR>
-nnoremap <silent> <A-c> :Continue<CR>
+" nnoremap <silent> <C-n> :Over<CR>
+" nnoremap <silent> <C-s> :Step<CR>
+" nnoremap <silent> <C-b> :Break<CR>
+" nnoremap <silent> <C-c> :Clear<CR>
+" nnoremap <silent> <A-c> :Continue<CR>
 
 " Fugitive + Merge
 nmap <leader>hl :Gvdiffsplit!<CR>
@@ -216,6 +219,16 @@ nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> gr		<cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <space>e	<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <silent> <space>q	<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+
+" Test
+" nmap <silent> <C-t> :TestNearest<CR>
+" nmap <silent> <leader>T :TestFile<CR>
+" nmap <silent> <C-a> :TestSuite<CR>
+" nmap <silent> <leader>l :TestLast<CR>
+" nmap <silent> <leader>g :TestVisit<CR>
+
+" Dap
+" nnoremap <silent>
 
 " Others
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
@@ -253,6 +266,12 @@ let g:gitgutter_sign_removed = '-'
 let g:gitgutter_sign_removed_first_line = '-'
 let g:gitgutter_sign_modified_removed = '-'
 
+" Colorizer
+set termguicolors
+
+" Dap
+" let g:dap_virtual_text = v:true
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Theme
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -270,6 +289,9 @@ local on_attach = function(client, bufnr)
 	end
 end
 
+require("colorizer").setup()
+require("trouble").setup()
+-- require("todo-comments").setup()
 local lsp_installer = require("nvim-lsp-installer")
 
 lsp_installer.on_server_ready(function(server)
@@ -296,5 +318,69 @@ for _, lsp in pairs(servers) do
 		on_attach = on_attach,
 	}
 end
+
+
+--[[
+local dap = require('dap')
+dap.adapters.node2 = {
+	type = 'executable',
+	command = 'node',
+	args = {os.getenv('HOME') .. '/Documents/Others/vscode-node-debug2/out/src/nodeDebug.js'},
+}
+
+
+dap.defaults.fallback.terminal_win_cmd = '20split new'
+vim.fn.sign_define('DapBreakpoint',			{text='', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpointRejected',	{text='', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapStopped',			{text='', texthl='', linehl='', numhl=''})
+
+local function dap_attach()
+  print("attaching")
+  dap.run({
+      type = 'node2',
+      request = 'attach',
+      cwd = vim.fn.getcwd(),
+      sourceMaps = true,
+      protocol = 'inspector',
+      skipFiles = {'<node_internals>/**/*.js'},
+      })
+end
+
+local function dap_attachToRemote()
+  print("Remote attaching")
+  dap.run({
+      type = 'node2',
+      request = 'attach',
+      address = "127.0.0.1",
+      port = 9229,
+      localRoot = vim.fn.getcwd(),
+      remoteRoot = "/home/vcap/app",
+      sourceMaps = true,
+      protocol = 'inspector',
+      skipFiles = {'<node_internals>/**/*.js'},
+      })
+end
+
+vim.keymap.set('n', '<C-b>', function() require"dap".toggle_breakpoint() end)
+vim.keymap.set('n', '<leader>dH', ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
+vim.keymap.set('n', '<C-o>', function() require"dap".step_out() end)
+vim.keymap.set('n', "<C-s>", function() require"dap".step_into() end)
+vim.keymap.set('n', '<C-n>', function() require"dap".step_over() end)
+vim.keymap.set('n', '<A-c>', function() require"dap".continue() end)
+vim.keymap.set('n', '<leader>dn', function() require"dap".run_to_cursor() end)
+vim.keymap.set('n', '<C-c>', function() require"dap".terminate() end)
+vim.keymap.set('n', '<leader>dR', function() require"dap".clear_breakpoints() end)
+vim.keymap.set('n', '<leader>de', function() require"dap".set_exception_breakpoints({"all"}) end)
+vim.keymap.set('n', '<leader>da', dap_attach)
+vim.keymap.set('n', '<leader>dA', dap_attachToRemote)
+vim.keymap.set('n', '<C-k>', function() require"dap.ui.widgets".hover() end)
+vim.keymap.set('n', '<A-k>', function() local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes) end)
+vim.keymap.set('n', '<leader>dk', ':lua require"dap".up()<CR>zz')
+vim.keymap.set('n', '<leader>dj', ':lua require"dap".down()<CR>zz')
+vim.keymap.set('n', '<leader>dr', ':lua require"dap".repl.toggle({}, "vsplit")<CR><C-w>l')
+
+require("nvim-dap-virtual-text").setup()
+--]]
+
 EOF
 

@@ -20,28 +20,44 @@ in {
     vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
+      # UI
+      nvim-colorizer-lua
       vim-airline
       vim-airline-themes
-      tender-vim
-      vim-devicons
-      # vim-clang-format
-      neoformat
-      vim-gitgutter
-      ultisnips
-      vimtex
+      nvim-web-devicons
+      lsp-colors-nvim
+      trouble-nvim
+      todo-nvim
+
+      # Navigation
       nvim-treesitter
       telescope-nvim
       which-key-nvim
-      nvim-colorizer-lua
-      vim-fugitive
       vim-eunuch
-      vim-dadbod
-      vim-dadbod-ui
-      vim-addon-nix
+
+      # Git
+      vim-gitgutter
+      vim-fugitive
+
+      # LSP
       (plugin "neovim/nvim-lspconfig")
       (plugin "williamboman/nvim-lsp-installer")
-      (plugin "puremourning/vimspector")
-      (plugin "Metallum19/purify-vim") # Theme
+
+      # Theme
+      (plugin "Metallum19/purify-vim")
+      tender-vim
+
+      # Others
+      glow-nvim
+      ultisnips
+      vimtex
+      neoformat
+      vim-addon-nix
+
+      # vim-clang-format
+      # nvim-dap
+      # nvim-dap-virtual-text
+      # vim-test
     ];
 
     # https://github.com/breuerfelix/nixos/blob/main/shell/vim/init.nix
