@@ -10,6 +10,8 @@ let
     syncthing
     nitrogen
     thunderbird
+    jupyter
+    vlc
   ];
 
   shellPkgs = with pkgs; [
@@ -44,6 +46,10 @@ let
     clang-manpages
     man-pages
     posix_man_pages
+
+    # Python
+    python39Packages.poetry
+    (python39.withPackages (ps: with ps; [ pip pandas ]))
   ];
 
   npmPkgs = with pkgs.nodePackages; [
