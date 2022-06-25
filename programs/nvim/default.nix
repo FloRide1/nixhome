@@ -27,7 +27,7 @@ in {
       nvim-web-devicons
       lsp-colors-nvim
       trouble-nvim
-      todo-nvim
+      # todo-nvim
 
       # Navigation
       nvim-treesitter
