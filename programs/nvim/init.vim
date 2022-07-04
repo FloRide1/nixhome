@@ -93,11 +93,13 @@ set cursorline
 set smartindent
 
 " Add GDB Debugger
-packadd termdebug
+" packadd termdebug
 
 " Gdb Config
-let g:termdebug_wide=1
-let g:termdebug_useFloatingHover = 0
+" let g:termdebug_wide=1
+" let g:termdebug_useFloatingHover = 0
+" let g:termdebug_popup = 0
+" let g:termdebug_wide = 163
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Search options
@@ -159,17 +161,19 @@ nnoremap Y y$
 noremap ; :
 
 " Tab Map
-map <A-1> 1gt
-map <A-2> 2gt
-map <A-3> 3gt
-map <A-4> 4gt
-map <A-5> 5gt
-map <A-6> 6gt
-map <A-7> 7gt
-map <A-8> 8gt
-map <A-9> 9gt
-map <A-t> :tabnew<CR>
-map <A-w> :tabclose<CR>
+noremap <A-1> 1gt
+noremap <A-2> 2gt
+noremap <A-3> 3gt
+noremap <A-4> 4gt
+noremap <A-5> 5gt
+noremap <A-6> 6gt
+noremap <A-7> 7gt
+noremap <A-8> 8gt
+noremap <A-9> 9gt
+noremap <A-t> :tabnew<CR>
+noremap <A-w> :tabclose<CR>
+noremap <A-h> :tabprevious<CR>
+noremap <A-l> :tabnext<CR>
 
 " Split Screen
 nmap <silent> <A-Up> :wincmd k<CR>
@@ -177,16 +181,18 @@ nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
+" Switch Screen during INSERT Mode
 imap <C-w> <C-o><C-w>
 
+" Map + and _ to Screen size
 map + <C-W>+
 map _ <C-W>-
 map <M-.> <C-W><
 map <M-,> <C-W>>
 
 " Run make silently, then skip the 'Press ENTER to continue'
-noremap <leader>m :silent! :make! \| :redraw!<cr>
-noremap <leader>c :silent! :make! check \| :redraw!<cr>
+" noremap <leader>m :silent! :make! \| :redraw!<cr>
+" noremap <leader>c :silent! :make! check \| :redraw!<cr>
 
 " Map ESC to exit terminal mode
 tnoremap <Esc> <C-\><C-n>
@@ -203,8 +209,9 @@ nmap <C-h> :diffget //2<CR>
 nmap <C-l> :diffget //3<CR>
 
 " Telescope + Find
-nmap <C-f> :Telescope find_files<CR>
-nmap <C-g> :Telescope live_grep<CR>
+nnoremap <C-f> :Telescope current_buffer_fuzzy_find<CR>
+nnoremap <leader>ff :Telescope find_files<CR>
+nnoremap <leader>fg :Telescope live_grep<CR>
 
 " Lsp
 nnoremap <silent> K			<cmd>lua vim.lsp.buf.hover()<CR>
@@ -227,19 +234,11 @@ nnoremap <silent> <space>q	<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 " nmap <silent> <leader>l :TestLast<CR>
 " nmap <silent> <leader>g :TestVisit<CR>
 
-" Dap
-" nnoremap <silent>
+" Ulti Snips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-" Others
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <C-Space> <C-n>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" Persistence options
-""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:termdebug_popup = 0
-let g:termdebug_wide = 163
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin mappings and options
@@ -253,11 +252,6 @@ augroup END
 " Clang Format
 " let g:clang_format#detect_style_file = 1
 " let g:clang_format#auto_format = 1
-
-" Ulti Snips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Git Gutter
 let g:gitgutter_sign_added = '✚'
@@ -283,16 +277,63 @@ let g:airline_theme = 'purify'
 " Lua
 """"""""""""""""""""""""""""""""""""""""""""""""""
 lua<<EOF
+
+require("colorizer").setup()
+require("trouble").setup()
+--[[
+require("cmp").setup({
+	sources = {
+		{ name = 'nvim_lsp' },
+		{ name = 'path' },
+		{ name = 'luasnip'},
+		{ name = 'nvim_lsp_signature_help' },
+	},
+
+	mapping = {
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<CR>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        },
+
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            elseif has_words_before() then
+                cmp.complete()
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
+
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { "i", "s" })
+    },
+})
+
+--]]
+
+
+-- require("todo-comments").setup()
+local lsp_installer = require("nvim-lsp-installer")
+
 local on_attach = function(client, bufnr)
 		local function buf_set_keymap(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
 	end
 end
-
-require("colorizer").setup()
-require("trouble").setup()
--- require("todo-comments").setup()
-local lsp_installer = require("nvim-lsp-installer")
 
 lsp_installer.on_server_ready(function(server)
 	local opts = {}
