@@ -225,7 +225,9 @@ nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.code_action()<CR>
 
 nnoremap <silent> gr		<cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <space>e	<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nnoremap <silent> <space>q	<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+
+" Trouble Toogle
+nnoremap <silent> <space>q	<cmd>TroubleToggle<CR>
 
 " Test
 " nmap <silent> <C-t> :TestNearest<CR>
