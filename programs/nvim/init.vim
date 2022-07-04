@@ -213,7 +213,7 @@ nnoremap <C-f> :Telescope current_buffer_fuzzy_find<CR>
 nnoremap <leader>ff :Telescope find_files<CR>
 nnoremap <leader>fg :Telescope live_grep<CR>
 
-" Lsp
+" Lspcurrent_buffer_fuzzy_find
 nnoremap <silent> K			<cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gd		<cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD		<cmd>lua vim.lsp.buf.declaration()<CR>
@@ -235,9 +235,9 @@ nnoremap <silent> <space>q	<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 " nmap <silent> <leader>g :TestVisit<CR>
 
 " Ulti Snips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -276,58 +276,80 @@ let g:airline_theme = 'purify'
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Lua
 """"""""""""""""""""""""""""""""""""""""""""""""""
+set completeopt=menu,menuone,noselect
 lua<<EOF
 
 require("colorizer").setup()
 require("trouble").setup()
---[[
-require("cmp").setup({
+
+
+local cmp = require("cmp")
+local luasnip = require("luasnip")
+
+local has_words_before = function()
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+cmp.setup({
+	snippet = { expand = function(args) require('luasnip').lsp_expand(args.body) end },
 	sources = {
 		{ name = 'nvim_lsp' },
 		{ name = 'path' },
-		{ name = 'luasnip'},
 		{ name = 'nvim_lsp_signature_help' },
+		{ name = 'buffer', max_item_count = 5 },
+		{ name = 'luasnip'}
 	},
 
 	mapping = {
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.close(),
-        ['<CR>'] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-        },
+	['<C-Space>'] = cmp.mapping.complete(),
+		['<C-e>'] = cmp.mapping.close(),
+		['<CR>'] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
+		["<Tab>"] = cmp.mapping(function(fallback)
+			  if cmp.visible() then
+				cmp.select_next_item()
+			  elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
+			  elseif has_words_before() then
+				cmp.complete()
+			  else
+				fallback()
+			  end
+			end, { "i", "s" }),
 
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-            elseif has_words_before() then
-                cmp.complete()
-            else
-                fallback()
-            end
-        end, { "i", "s" }),
-
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
-        end, { "i", "s" })
+			["<S-Tab>"] = cmp.mapping(function(fallback)
+			  if cmp.visible() then
+				cmp.select_prev_item()
+			  elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
+			  else
+				fallback()
+			  end
+			end, { "i", "s" }),
     },
 })
 
---]]
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', 
+{
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {{ name = 'buffer' }}
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', 
+{
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = { { name = 'path' }, { name = 'cmdline' } }
+})
 
 
 -- require("todo-comments").setup()
 local lsp_installer = require("nvim-lsp-installer")
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local on_attach = function(client, bufnr)
 		local function buf_set_keymap(...)
@@ -357,6 +379,7 @@ local servers = { 'rnix', 'tsserver' }
 for _, lsp in pairs(servers) do
 	require('lspconfig')[lsp].setup {
 		on_attach = on_attach,
+		capabilities = capabilities,
 	}
 end
 

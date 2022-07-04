@@ -47,9 +47,19 @@ in {
       (plugin "Metallum19/purify-vim")
       tender-vim
 
+      # Completion
+      (plugin "hrsh7th/nvim-cmp")
+      (plugin "saadparwaiz1/cmp_luasnip")
+      (plugin "hrsh7th/cmp-nvim-lsp")
+      (plugin "hrsh7th/cmp-cmdline")
+      (plugin "hrsh7th/cmp-path")
+      (plugin "hrsh7th/cmp-buffer")
+      (plugin "hrsh7th/cmp-nvim-lsp-signature-help")
+
       # Others
       glow-nvim
-      ultisnips
+      # ultisnips
+      luasnip
       vimtex
       neoformat
       vim-addon-nix
