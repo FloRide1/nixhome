@@ -93,11 +93,13 @@ set cursorline
 set smartindent
 
 " Add GDB Debugger
-packadd termdebug
+" packadd termdebug
 
 " Gdb Config
-let g:termdebug_wide=1
-let g:termdebug_useFloatingHover = 0
+" let g:termdebug_wide=1
+" let g:termdebug_useFloatingHover = 0
+" let g:termdebug_popup = 0
+" let g:termdebug_wide = 163
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Search options
@@ -159,17 +161,19 @@ nnoremap Y y$
 noremap ; :
 
 " Tab Map
-map <A-1> 1gt
-map <A-2> 2gt
-map <A-3> 3gt
-map <A-4> 4gt
-map <A-5> 5gt
-map <A-6> 6gt
-map <A-7> 7gt
-map <A-8> 8gt
-map <A-9> 9gt
-map <A-t> :tabnew<CR>
-map <A-w> :tabclose<CR>
+noremap <A-1> 1gt
+noremap <A-2> 2gt
+noremap <A-3> 3gt
+noremap <A-4> 4gt
+noremap <A-5> 5gt
+noremap <A-6> 6gt
+noremap <A-7> 7gt
+noremap <A-8> 8gt
+noremap <A-9> 9gt
+noremap <A-t> :tabnew<CR>
+noremap <A-w> :tabclose<CR>
+noremap <A-h> :tabprevious<CR>
+noremap <A-l> :tabnext<CR>
 
 " Split Screen
 nmap <silent> <A-Up> :wincmd k<CR>
@@ -177,16 +181,18 @@ nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
+" Switch Screen during INSERT Mode
 imap <C-w> <C-o><C-w>
 
+" Map + and _ to Screen size
 map + <C-W>+
 map _ <C-W>-
 map <M-.> <C-W><
 map <M-,> <C-W>>
 
 " Run make silently, then skip the 'Press ENTER to continue'
-noremap <leader>m :silent! :make! \| :redraw!<cr>
-noremap <leader>c :silent! :make! check \| :redraw!<cr>
+" noremap <leader>m :silent! :make! \| :redraw!<cr>
+" noremap <leader>c :silent! :make! check \| :redraw!<cr>
 
 " Map ESC to exit terminal mode
 tnoremap <Esc> <C-\><C-n>
@@ -203,10 +209,11 @@ nmap <C-h> :diffget //2<CR>
 nmap <C-l> :diffget //3<CR>
 
 " Telescope + Find
-nmap <C-f> :Telescope find_files<CR>
-nmap <C-g> :Telescope live_grep<CR>
+nnoremap <C-f> :Telescope current_buffer_fuzzy_find<CR>
+nnoremap <leader>ff :Telescope find_files<CR>
+nnoremap <leader>fg :Telescope live_grep<CR>
 
-" Lsp
+" Lspcurrent_buffer_fuzzy_find
 nnoremap <silent> K			<cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gd		<cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD		<cmd>lua vim.lsp.buf.declaration()<CR>
@@ -218,7 +225,6 @@ nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.code_action()<CR>
 
 nnoremap <silent> gr		<cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <space>e	<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nnoremap <silent> <space>q	<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 
 " Test
 " nmap <silent> <C-t> :TestNearest<CR>
@@ -233,13 +239,21 @@ nnoremap <silent> <space>q	<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 " Others
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <C-Space> <C-n>
+" Trouble Toogle
+nnoremap <silent> <space>q	<cmd>TroubleToggle<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" Persistence options
-""""""""""""""""""""""""""""""""""""""""""""""""""
+" Test
+" nmap <silent> <C-t> :TestNearest<CR>
+" nmap <silent> <leader>T :TestFile<CR>
+" nmap <silent> <C-a> :TestSuite<CR>
+" nmap <silent> <leader>l :TestLast<CR>
+" nmap <silent> <leader>g :TestVisit<CR>
 
-let g:termdebug_popup = 0
-let g:termdebug_wide = 163
+" Ulti Snips
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin mappings and options
@@ -253,11 +267,6 @@ augroup END
 " Clang Format
 " let g:clang_format#detect_style_file = 1
 " let g:clang_format#auto_format = 1
-
-" Ulti Snips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Git Gutter
 let g:gitgutter_sign_added = '✚'
@@ -282,18 +291,90 @@ let g:airline_theme = 'purify'
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Lua
 """"""""""""""""""""""""""""""""""""""""""""""""""
+set completeopt=menu,menuone,noselect
 lua<<EOF
+
+require("colorizer").setup()
+require("trouble").setup()
+
+
+local cmp = require("cmp")
+local luasnip = require("luasnip")
+-- require("todo-comments").setup()
+
+local has_words_before = function()
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+cmp.setup({
+	snippet = { expand = function(args) require('luasnip').lsp_expand(args.body) end },
+	sources = {
+		{ name = 'nvim_lsp' },
+		{ name = 'path' },
+		{ name = 'nvim_lsp_signature_help' },
+		{ name = 'buffer', max_item_count = 5 },
+		{ name = 'luasnip'}
+	},
+
+	mapping = {
+	['<C-Space>'] = cmp.mapping.complete(),
+		['<C-e>'] = cmp.mapping.close(),
+		['<CR>'] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
+		["<Tab>"] = cmp.mapping(function(fallback)
+			  if cmp.visible() then
+				cmp.select_next_item()
+			  elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
+			  elseif has_words_before() then
+				cmp.complete()
+			  else
+				fallback()
+			  end
+			end, { "i", "s" }),
+
+			["<S-Tab>"] = cmp.mapping(function(fallback)
+			  if cmp.visible() then
+				cmp.select_prev_item()
+			  elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
+			  else
+				fallback()
+			  end
+			end, { "i", "s" }),
+    },
+})
+
+
+--[[
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', 
+{
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {{ name = 'buffer' }}
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', 
+{
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = { { name = 'path' }, { name = 'cmdline' } }
+})
+--]]
+
+
+local lsp_installer = require("nvim-lsp-installer")
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 local on_attach = function(client, bufnr)
 		local function buf_set_keymap(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
 	end
 end
 
-require("colorizer").setup()
-require("trouble").setup()
--- require("todo-comments").setup()
 local lsp_installer = require("nvim-lsp-installer")
-
 lsp_installer.on_server_ready(function(server)
 	local opts = {}
 	opts.on_attach = on_attach
@@ -316,6 +397,7 @@ local servers = { 'rnix', 'tsserver' }
 for _, lsp in pairs(servers) do
 	require('lspconfig')[lsp].setup {
 		on_attach = on_attach,
+		capabilities = capabilities,
 	}
 end
 
