@@ -29,7 +29,10 @@
       }
     ];
 
-    envExtra = "LANG=C.UTF-8";
+    envExtra = ''
+	LANG=C.UTF-8
+	PATH=$HOME/.local/bin:$PATH
+	'';
 
     oh-my-zsh = {
       enable = true;
