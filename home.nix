@@ -23,7 +23,7 @@ let
 
     # Shell
     any-nix-shell
-    nodejs
+    nodejs-16_x
     gcc
     curl
     wget
@@ -69,7 +69,7 @@ in {
     homeDirectory = "/home/floride";
 
     packages = desktopPkgs ++ shellPkgs ++ npmPkgs;
-    stateVersion = "21.05";
+    stateVersion = "21.11";
   };
 
   home.keyboard = { layout = "gb"; };
