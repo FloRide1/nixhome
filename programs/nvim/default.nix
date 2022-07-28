@@ -57,6 +57,7 @@ in {
       (plugin "hrsh7th/cmp-nvim-lsp-signature-help")
 
       # Others
+      (plugin "pantharshit00/vim-prisma")
       glow-nvim
       # ultisnips
       luasnip
