@@ -392,7 +392,7 @@ lsp_installer.settings({
 	}
 })
 
-local servers = { 'rnix', 'tsserver' }
+local servers = { 'rnix', 'tsserver', 'rust_analyzer' }
 
 for _, lsp in pairs(servers) do
 	require('lspconfig')[lsp].setup {
