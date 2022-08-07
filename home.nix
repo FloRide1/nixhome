@@ -27,6 +27,7 @@ let
     curl
     wget
     delta
+    rust-analyzer
 
     # Utility
     htop
