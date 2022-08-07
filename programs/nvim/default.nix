@@ -64,6 +64,7 @@ in {
       vimtex
       neoformat
       vim-addon-nix
+      vim-toml
 
       # vim-clang-format
       # nvim-dap
