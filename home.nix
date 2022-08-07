@@ -2,7 +2,6 @@
 
 let
   desktopPkgs = with pkgs; [
-    discord
     spotify
     lxrandr
     i3lock-fancy
