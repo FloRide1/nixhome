@@ -41,7 +41,8 @@ in {
 
       # LSP
       (plugin "neovim/nvim-lspconfig")
-      (plugin "williamboman/nvim-lsp-installer")
+      (plugin "williamboman/mason.nvim")
+      (plugin "williamboman/mason-lspconfig.nvim")
 
       # Theme
       (plugin "Metallum19/purify-vim")
