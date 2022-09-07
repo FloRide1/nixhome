@@ -22,11 +22,11 @@ in {
     plugins = with pkgs.vimPlugins; [
       # UI
       nvim-colorizer-lua
-      vim-airline
-      vim-airline-themes
-      nvim-web-devicons
-      lsp-colors-nvim
-      trouble-nvim
+      (plugin "vim-airline/vim-airline")
+      (plugin "vim-airline/vim-airline")
+      (plugin "kyazdani42/nvim-web-devicons")
+      (plugin "folke/lsp-colors.nvim")
+      (plugin "folke/trouble.nvim")
       # todo-nvim
 
       # Navigation
