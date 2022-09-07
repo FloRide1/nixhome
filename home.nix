@@ -63,6 +63,12 @@ in {
   programs.home-manager.enable = true;
 
   nixpkgs.config = { allowUnfree = true; };
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url =
+        "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
+    }))
+  ];
 
   home = {
     username = "floride";
