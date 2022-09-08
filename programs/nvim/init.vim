@@ -308,7 +308,7 @@ local has_words_before = function()
 end
 
 cmp.setup({
-	snippet = { expand = function(args) require('luasnip').lsp_expand(args.body) end },
+	snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
 	sources = {
 		{ name = 'nvim_lsp' },
 		{ name = 'path' },
@@ -346,6 +346,7 @@ cmp.setup({
 })
 
 
+
 --[[
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', 
@@ -363,44 +364,41 @@ cmp.setup.cmdline(':',
 --]]
 
 
-local lsp_installer = require("nvim-lsp-installer")
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
 local on_attach = function(client, bufnr)
-		local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
+	vim.api.nvim_exec_autocmds('User', {pattern = 'LspAttached'})
 end
 
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.on_server_ready(function(server)
-	local opts = {}
-	opts.on_attach = on_attach
-	server:setup(opts)
-	vim.cmd [[ do User LspAttachBuffers ]]
-end)
 
-lsp_installer.settings({
-	ui = {
-		icons = {
-			server_installed = "✓",
-			server_pending = "➜",
-			server_uninstalled = "✗"
-		}
-	}
-})
-
-local servers = { 'rnix', 'tsserver', 'rust_analyzer' }
+local servers = { 'rnix', 'tsserver', 'rust_analyzer', 'jdtls' }
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 for _, lsp in pairs(servers) do
-	require('lspconfig')[lsp].setup {
+	require('lspconfig')[lsp].setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
-	}
+	})
 end
 
+local pid = vim.fn.getpid()
+local omnisharp_bin = "/home/floride/.local/share/nvim/mason/bin/omnisharp"
+require'lspconfig'.omnisharp.setup{
+    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+	on_attach = on_attach,
+	capabilities = capabilities,
+}
+
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+require("mason-lspconfig").setup {
+    ensure_installed = { "omnisharp" },
+}
 
 --[[
 local dap = require('dap')
