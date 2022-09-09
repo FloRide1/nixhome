@@ -226,6 +226,8 @@ nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> gr		<cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <space>e	<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
+noremap <silent> <a-cr> <cmd>ToggleTerm direction=float<CR>
+
 " Test
 " nmap <silent> <C-t> :TestNearest<CR>
 " nmap <silent> <leader>T :TestFile<CR>
@@ -296,6 +298,7 @@ lua<<EOF
 
 require("colorizer").setup()
 require("trouble").setup()
+require("toggleterm").setup()
 
 
 local cmp = require("cmp")
