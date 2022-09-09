@@ -44,6 +44,11 @@ in {
       (plugin "williamboman/mason.nvim")
       (plugin "williamboman/mason-lspconfig.nvim")
 
+      # DAP
+      (plugin "mfussenegger/nvim-dap")
+      (plugin "rcarriga/nvim-dap-ui")
+      (plugin "theHamsta/nvim-dap-virtual-text")
+
       # Theme
       (plugin "Metallum19/purify-vim")
       tender-vim
@@ -68,8 +73,6 @@ in {
       vim-toml
 
       # vim-clang-format
-      # nvim-dap
-      # nvim-dap-virtual-text
       # vim-test
     ];
 

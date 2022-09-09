@@ -400,46 +400,10 @@ require("mason-lspconfig").setup {
     ensure_installed = { "omnisharp" },
 }
 
---[[
 local dap = require('dap')
-dap.adapters.node2 = {
-	type = 'executable',
-	command = 'node',
-	args = {os.getenv('HOME') .. '/Documents/Others/vscode-node-debug2/out/src/nodeDebug.js'},
-}
-
-
-dap.defaults.fallback.terminal_win_cmd = '20split new'
 vim.fn.sign_define('DapBreakpoint',			{text='', texthl='', linehl='', numhl=''})
 vim.fn.sign_define('DapBreakpointRejected',	{text='', texthl='', linehl='', numhl=''})
 vim.fn.sign_define('DapStopped',			{text='', texthl='', linehl='', numhl=''})
-
-local function dap_attach()
-  print("attaching")
-  dap.run({
-      type = 'node2',
-      request = 'attach',
-      cwd = vim.fn.getcwd(),
-      sourceMaps = true,
-      protocol = 'inspector',
-      skipFiles = {'<node_internals>/**/*.js'},
-      })
-end
-
-local function dap_attachToRemote()
-  print("Remote attaching")
-  dap.run({
-      type = 'node2',
-      request = 'attach',
-      address = "127.0.0.1",
-      port = 9229,
-      localRoot = vim.fn.getcwd(),
-      remoteRoot = "/home/vcap/app",
-      sourceMaps = true,
-      protocol = 'inspector',
-      skipFiles = {'<node_internals>/**/*.js'},
-      })
-end
 
 vim.keymap.set('n', '<C-b>', function() require"dap".toggle_breakpoint() end)
 vim.keymap.set('n', '<leader>dH', ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
@@ -451,16 +415,113 @@ vim.keymap.set('n', '<leader>dn', function() require"dap".run_to_cursor() end)
 vim.keymap.set('n', '<C-c>', function() require"dap".terminate() end)
 vim.keymap.set('n', '<leader>dR', function() require"dap".clear_breakpoints() end)
 vim.keymap.set('n', '<leader>de', function() require"dap".set_exception_breakpoints({"all"}) end)
-vim.keymap.set('n', '<leader>da', dap_attach)
-vim.keymap.set('n', '<leader>dA', dap_attachToRemote)
 vim.keymap.set('n', '<C-k>', function() require"dap.ui.widgets".hover() end)
 vim.keymap.set('n', '<A-k>', function() local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes) end)
 vim.keymap.set('n', '<leader>dk', ':lua require"dap".up()<CR>zz')
 vim.keymap.set('n', '<leader>dj', ':lua require"dap".down()<CR>zz')
 vim.keymap.set('n', '<leader>dr', ':lua require"dap".repl.toggle({}, "vsplit")<CR><C-w>l')
+vim.keymap.set('n', '<leader>m', function() require("dapui").eval() end)
 
 require("nvim-dap-virtual-text").setup()
---]]
+require("dapui").setup({
+  icons = { expanded = "▾", collapsed = "▸" },
+  mappings = {
+    -- Use a table to apply multiple mappings
+    expand = { "<CR>", "<2-LeftMouse>" },
+    open = "o",
+    remove = "d",
+    edit = "e",
+    repl = "r",
+    toggle = "t",
+  },
+  -- Expand lines larger than the window
+  -- Requires >= 0.7
+  expand_lines = vim.fn.has("nvim-0.7"),
+  layouts = {
+      {
+        -- You can change the order of elements in the sidebar
+        elements = {
+          -- Provide as ID strings or tables with "id" and "size" keys
+          {
+            id = "scopes",
+            size = 0.25, -- Can be float or integer > 1
+          },
+          { id = "breakpoints", size = 0.25 },
+          { id = "stacks", size = 0.25 },
+          { id = "watches", size = 00.25 },
+        },
+        size = 40,
+        position = "left", -- Can be "left", "right", "top", "bottom"
+      },
+      {
+        elements = { "repl" },
+        size = 10,
+        position = "bottom", -- Can be "left", "right", "top", "bottom"
+      },
+  },
+  floating = {
+    max_height = nil, -- These can be integers or a float between 0 and 1.
+    max_width = nil, -- Floats will be treated as percentage of your screen.
+    border = "single", -- Border style. Can be "single", "double" or "rounded"
+    mappings = {
+      close = { "q", "<Esc>" },
+    },
+  },
+  windows = { indent = 1 },
+  render = {
+    max_type_length = nil, -- Can be integer or nil.
+  }
+})
+
+-- Hide statuline inside dap's buffers
+vim.cmd([[
+autocmd BufEnter dapui* set statusline=\ 
+autocmd BufEnter dap-repl set statusline=\ 
+]])
+
+-- call dap-ui automatically from dap when launching/closing a debugging session
+local dap, dapui = require("dap"), require("dapui")
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
+
+
+  dap.adapters.coreclr = {
+    type = 'executable',
+    command = 'netcoredbg';
+    args = {'--interpreter=vscode'}
+  }
+
+  dap.configurations.cs = {
+    {
+      type = "coreclr",
+      name = "launch - netcoredbg",
+      request = "launch",
+      program = function()
+        local cwd = vim.fn.getcwd()
+        local d = vim.fn.fnamemodify(cwd, ":t")
+        return vim.fn.input('Path to dll: ', cwd .. '/bin/Debug/net6.0/' .. d .. '.dll', 'file')
+      end,
+    },
+    {
+      type = "netcoredbg",
+      name = "attach - netcoredbg",
+      request = "attach",
+      processId = function()
+        local pid = require('dap.utils').pick_process()
+        vim.fn.setenv('NETCOREDBG_ATTACH_PID', pid)
+        return pid
+      end,
+    },
+  }
+
+
 
 EOF
 
