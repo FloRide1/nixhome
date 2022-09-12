@@ -75,7 +75,7 @@ in {
     homeDirectory = "/home/floride";
 
     packages = desktopPkgs ++ shellPkgs ++ npmPkgs;
-    stateVersion = "21.11";
+    stateVersion = "22.05";
   };
 
   home.keyboard = { layout = "gb"; };
