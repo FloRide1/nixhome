@@ -33,7 +33,6 @@ in {
       source ${nvim_config}
     '';
 
-
     plugins = with pkgs.vimPlugins; [
       # UI
       nvim-colorizer-lua
@@ -65,6 +64,7 @@ in {
       (plugin "theHamsta/nvim-dap-virtual-text")
 
       # Theme
+      (plugin "folke/tokyonight.nvim")
       (plugin "Metallum19/purify-vim")
       tender-vim
 

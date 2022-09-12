@@ -283,12 +283,6 @@ set termguicolors
 " Dap
 " let g:dap_virtual_text = v:true
 
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" Theme
-""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme purify
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'purify'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Lua
@@ -524,7 +518,39 @@ end
     },
   }
 
+require("tokyonight").setup({
+	style = "night",
+
+	transparent = false, 
+	terminal_colors = true, 
+	styles = {
+		comments = { italic = true },
+		keywords = { italic = true },
+		functions = {},
+		variables = {},
+		sidebars = "dark", 
+		floats = "dark",
+	},
+	on_colors = function(colors)
+		colors.gitSigns = {
+			add = "#9ece6a",
+			change = "#bbbb00",
+			delete = "#f7768e"
+		}
+	end,
+	sidebars = { "qf", "help" },
+	day_brightness = 0.3,
+	hide_inactive_statusline = false,
+	dim_inactive = false,
+})
 
 
 EOF
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Theme
+""""""""""""""""""""""""""""""""""""""""""""""""""
+colorscheme tokyonight-night
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'purify'
