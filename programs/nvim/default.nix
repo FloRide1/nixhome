@@ -41,6 +41,7 @@ in {
       (plugin "kyazdani42/nvim-web-devicons")
       (plugin "folke/lsp-colors.nvim")
       (plugin "folke/trouble.nvim")
+      (plugin "tami5/lspsaga.nvim")
       # todo-nvim
 
       # Navigation

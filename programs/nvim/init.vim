@@ -214,19 +214,20 @@ nnoremap <leader>ff :Telescope find_files<CR>
 nnoremap <leader>fg :Telescope live_grep<CR>
 
 " Lspcurrent_buffer_fuzzy_find
-nnoremap <silent> K			<cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gd		<cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD		<cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gi		<cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <C-k>		<cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> K			<cmd>Lspsaga hover_doc<CR>
+nnoremap <silent> gd		<cmd>Lspsaga preview_definition<CR>
+nnoremap <silent> gi		<cmd>Lspsaga lsp_finder<CR>
+nnoremap <silent> <C-k>		<cmd>Lspsaga signature_help<CR>
 
-nnoremap <silent> <C-r>r	<cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <C-r>r	<cmd>Lspsaga rename<CR>
+
+nnoremap <silent> <leader>f <cmd>Lspsaga code_action<CR>
+vnoremap <silent> <leader>f <cmd>Lspsaga range_code_action<CR>
 
 nnoremap <silent> gr		<cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <space>e	<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
-noremap <silent> <a-cr> <cmd>ToggleTerm direction=float<CR>
+nnoremap <silent> <a-cr> <cmd>ToggleTerm direction=float<CR>
+tnoremap <silent> <a-cr> <cmd>ToggleTerm direction=float<CR>
 
 " Test
 " nmap <silent> <C-t> :TestNearest<CR>
@@ -332,9 +333,73 @@ require('gitsigns').setup {
   },
 }
 require("colorizer").setup()
-require("trouble").setup()
 require("toggleterm").setup()
 
+require("trouble").setup({ 
+	icons = true,
+	signs = {
+        -- icons / text used for a diagnostic
+        error = "",
+        warning = "",
+        hint = "",
+        information = "",
+        other = "﫠"
+    },
+	use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
+})
+
+require('lspsaga').setup {
+  debug = true,
+  use_saga_diagnostic_sign = true,
+  -- diagnostic sign
+  error_sign = "",
+  warn_sign = "",
+  hint_sign = "",
+  infor_sign = "",
+  diagnostic_header_icon = "   ",
+
+  -- code action title icon
+  code_action_icon = " ",
+  code_action_prompt = {
+    enable = true,
+    sign = true,
+    sign_priority = 40,
+    virtual_text = true,
+  },
+  code_action_keys = {
+    quit = "q",
+    exec = "<CR>",
+  },
+
+  finder_definition_icon = "  ",
+  finder_reference_icon = "  ",
+  max_preview_lines = 10,
+  finder_action_keys = {
+    open = "o",
+    vsplit = "s",
+    split = "i",
+    quit = "q",
+    scroll_down = "<C-f>",
+    scroll_up = "<C-b>",
+  },
+
+  rename_prompt_prefix = "➤",
+  rename_output_qflist = {
+    enable = false,
+    auto_open_qflist = false,
+  },
+  rename_action_keys = {
+    quit = "<C-c>",
+    exec = "<CR>",
+  },
+
+  border_style = "single",
+  definition_preview_icon = "  ",
+  server_filetype_map = {},
+  diagnostic_prefix_format = "%d. ",
+  diagnostic_message_format = "%m %c",
+  highlight_prefix = false,
+}
 
 
 local cmp = require("cmp")
@@ -442,7 +507,7 @@ require("mason-lspconfig").setup {
 local dap = require('dap')
 vim.fn.sign_define('DapBreakpoint',			{text='', texthl='', linehl='', numhl=''})
 vim.fn.sign_define('DapBreakpointRejected',	{text='', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapStopped',			{text='', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapStopped',			{text='', texthl='', linehl='', numhl=''})
 
 vim.keymap.set('n', '<C-b>', function() require"dap".toggle_breakpoint() end)
 vim.keymap.set('n', '<leader>dH', ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
