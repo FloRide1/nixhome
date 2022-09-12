@@ -50,7 +50,8 @@ in {
       vim-eunuch
 
       # Git
-      vim-gitgutter
+      (plugin "lewis6991/gitsigns.nvim")
+      # vim-gitgutter
       vim-fugitive
 
       # LSP
