@@ -12,12 +12,27 @@ let
       };
     };
 
+  path = "~/.config/nixpkgs";
+  nvim_folder = "${path}/programs/nvim";
+  nvim_config = "${nvim_folder}/init.vim";
+  nvim_lua = "${nvim_folder}/lua";
+
+  # https://github.com/breuerfelix/nixos/blob/main/shell/vim/init.nix
+  # builtins.concatStringsSep "\n" [ (lib.strings.fileContents ./init.vim) ];
+
   # always installs latest version
   plugin = pluginGit "HEAD";
 in {
   programs.neovim = {
     enable = true;
     vimAlias = true;
+
+    extraConfig = ''
+      lua path  = "${nvim_lua}"
+
+      source ${nvim_config}
+    '';
+
 
     plugins = with pkgs.vimPlugins; [
       # UI
@@ -77,8 +92,5 @@ in {
       # vim-test
     ];
 
-    # https://github.com/breuerfelix/nixos/blob/main/shell/vim/init.nix
-    extraConfig =
-      builtins.concatStringsSep "\n" [ (lib.strings.fileContents ./init.vim) ];
   };
 }
