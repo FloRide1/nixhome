@@ -8,10 +8,12 @@
     extraConfig = {
       init.defaultBranch = "master";
       pull.ff = "true";
-      core = {
-        editor = "nvim";
-        pager = "delta --dark";
-      };
+
+      core.editor = "nvim";
+      core.pager = "${pkgs.delta}/bin/delta --dark";
+
+      merge.tool = "fugitive";
+      mergetool.fugitive.cmd = "nvim -f -c Gvdiffsplit! $LOCAL $REMOTE $MERGED";
     };
     aliases = {
       mr =
