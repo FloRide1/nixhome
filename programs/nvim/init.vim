@@ -473,7 +473,7 @@ local on_attach = function(client, bufnr)
 end
 
 
-local servers = { 'rnix', 'tsserver', 'rust_analyzer', 'jdtls' }
+local servers = { 'rnix', 'tsserver', 'rust_analyzer', "clangd" }
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 for _, lsp in pairs(servers) do
@@ -501,7 +501,14 @@ require("mason").setup({
     }
 })
 require("mason-lspconfig").setup {
-    ensure_installed = { "omnisharp" },
+    ensure_installed = 
+	{ 
+		"omnisharp",
+		"clangd",
+		"cpptools",
+		"cpplint",
+		"clang-format",
+	},
 }
 
 local dap = require('dap')
