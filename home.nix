@@ -45,7 +45,7 @@ let
     # Man
     clang-manpages
     man-pages
-    posix_man_pages
+    man-pages-posix
 
     # Python
     python39Packages.poetry
