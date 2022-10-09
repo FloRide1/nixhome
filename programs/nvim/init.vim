@@ -484,7 +484,7 @@ for _, lsp in pairs(servers) do
 end
 
 local pid = vim.fn.getpid()
-local omnisharp_bin = "/home/floride/.local/share/nvim/mason/bin/omnisharp"
+local omnisharp_bin = "omnisharp"
 require'lspconfig'.omnisharp.setup{
     cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
 	on_attach = on_attach,
@@ -531,7 +531,6 @@ vim.keymap.set('n', '<A-k>', function() local widgets=require"dap.ui.widgets";wi
 vim.keymap.set('n', '<leader>dk', ':lua require"dap".up()<CR>zz')
 vim.keymap.set('n', '<leader>dj', ':lua require"dap".down()<CR>zz')
 vim.keymap.set('n', '<leader>dr', ':lua require"dap".repl.toggle({}, "vsplit")<CR><C-w>l')
-vim.keymap.set('n', '<leader>m', function() require("dapui").eval() end)
 
 require("nvim-dap-virtual-text").setup()
 require("dapui").setup({
@@ -603,7 +602,7 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 end
 
 
-  dap.adapters.coreclr = {
+  dap.adapters.netcoredbg = {
     type = 'executable',
     command = 'netcoredbg';
     args = {'--interpreter=vscode'}
@@ -611,7 +610,7 @@ end
 
   dap.configurations.cs = {
     {
-      type = "coreclr",
+      type = "netcoredbg",
       name = "launch - netcoredbg",
       request = "launch",
       program = function()
