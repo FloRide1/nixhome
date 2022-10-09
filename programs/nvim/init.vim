@@ -229,12 +229,6 @@ nnoremap <silent> gr		<cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <a-cr> <cmd>ToggleTerm direction=float<CR>
 tnoremap <silent> <a-cr> <cmd>ToggleTerm direction=float<CR>
 
-" Test
-" nmap <silent> <C-t> :TestNearest<CR>
-" nmap <silent> <leader>T :TestFile<CR>
-" nmap <silent> <C-a> :TestSuite<CR>
-" nmap <silent> <leader>l :TestLast<CR>
-" nmap <silent> <leader>g :TestVisit<CR>
 
 " Dap
 " nnoremap <silent>
@@ -245,12 +239,11 @@ inoremap <C-Space> <C-n>
 " Trouble Toogle
 nnoremap <silent> <space>q	<cmd>TroubleToggle<CR>
 
-" Test
-" nmap <silent> <C-t> :TestNearest<CR>
-" nmap <silent> <leader>T :TestFile<CR>
-" nmap <silent> <C-a> :TestSuite<CR>
-" nmap <silent> <leader>l :TestLast<CR>
-" nmap <silent> <leader>g :TestVisit<CR>
+
+nnoremap <silent> <c-t> <cmd>lua require("neotest").summary.toggle()<CR>
+nnoremap <silent> <space>f <cmd>lua require("neotest").run.run()<CR>
+nnoremap <silent> <space>t <cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>
+
 
 " Ulti Snips
 " let g:UltiSnipsExpandTrigger="<tab>"
@@ -448,6 +441,30 @@ cmp.setup({
 			end, { "i", "s" }),
     },
 })
+
+require("neotest").setup({
+  adapters = {
+    require("neotest-plenary"),
+    require("neotest-dotnet"),
+	require("neotest-vim-test")({
+		ignore_file_types = { "vim" },
+	}),
+  },
+
+	icons = {
+		expanded = "",
+		child_prefix = "",
+		child_indent = "",
+		final_child_prefix = "",
+		non_collapsible = "",
+		collapsed = "",
+		passed = "",
+		running = "",
+		failed = "",
+		unknown = "",
+	},
+})
+
 
 
 

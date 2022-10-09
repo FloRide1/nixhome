@@ -79,6 +79,15 @@ in {
       cmp-buffer
       (plugin "hrsh7th/cmp-nvim-lsp-signature-help")
 
+      # Tests
+      (plugin "vim-test/vim-test")
+      (plugin "nvim-lua/plenary.nvim")
+      (plugin "nvim-neotest/neotest-plenary")
+      (plugin "antoinemadec/FixCursorHold.nvim")
+      (plugin "nvim-neotest/neotest")
+      (plugin "nvim-neotest/neotest-vim-test")
+      (plugin "Issafalcon/neotest-dotnet")
+
       # Others
       (plugin "akinsho/toggleterm.nvim")
       (plugin "pantharshit00/vim-prisma")
