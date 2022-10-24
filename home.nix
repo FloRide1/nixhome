@@ -17,6 +17,7 @@ let
     networkmanagerapplet
     kicad
     libreoffice
+    inkscape
   ];
 
   shellPkgs = with pkgs; [
