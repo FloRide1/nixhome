@@ -523,9 +523,6 @@ require("mason-lspconfig").setup {
 	{ 
 		"omnisharp",
 		"clangd",
-		"cpptools",
-		"cpplint",
-		"clang-format",
 	},
 }
 
