@@ -11,14 +11,28 @@ let
     thunderbird
     jupyter
     vlc
+    discord
+    dotnet-sdk
+    arandr
+    networkmanagerapplet
+    kicad
+    libreoffice
   ];
 
   shellPkgs = with pkgs; [
+    # Rust 
+    rustc
+    cargo
+    rustfmt
+    rust-analyzer
+    clippy
+
     # nvim
     xclip
     ripgrep
     fd
     nixfmt
+    gnumake
 
     # Shell
     any-nix-shell
@@ -41,6 +55,7 @@ let
     ranger
     rnix-lsp
     clang-tools
+    unzip
 
     # Man
     clang-manpages
