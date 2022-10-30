@@ -15,9 +15,11 @@ let
     dotnet-sdk
     arandr
     networkmanagerapplet
-    kicad
+    kicad-unstable
     libreoffice
     inkscape
+    zathura
+    freecad
   ];
 
   shellPkgs = with pkgs; [
