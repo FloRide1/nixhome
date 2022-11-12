@@ -78,6 +78,11 @@ in {
     };
     startup = [
       {
+        command = "${pkgs.autorandr}/bin/autorandr -c&";
+        always = true;
+        notification = false;
+      }
+      {
         command = "${pkgs.nitrogen}/bin/nitrogen --restore &";
         always = true;
         notification = false;
@@ -86,7 +91,10 @@ in {
         command = "${pkgs.i3-gaps}/bin/i3-msg workspace ${ws1}";
         always = true;
       }
-      { command = "systemctl --user restart polybar"; }
+      {
+        command = "systemctl --user restart polybar";
+        always = true;
+      }
     ];
 
   };
