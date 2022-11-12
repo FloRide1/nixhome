@@ -14,6 +14,7 @@ let
     discord
     dotnet-sdk
     arandr
+    autorandr
     networkmanagerapplet
     kicad-unstable
     libreoffice
