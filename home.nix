@@ -59,6 +59,7 @@ let
     ranger
     rnix-lsp
     clang-tools
+    zip
     unzip
 
     # Man
@@ -67,7 +68,7 @@ let
     man-pages-posix
 
     # Python
-    python39Packages.poetry
+    # python39Packages.poetry
     (python39.withPackages (ps: with ps; [ pip pandas ]))
   ];
 
