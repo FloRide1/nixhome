@@ -138,7 +138,7 @@ set shiftwidth=4
 set softtabstop=-1
 
 " Insert spaces instead of tabs
-" set expandtab
+ set expandtab
 
 " When tabbing manually, use shiftwidth instead of tabstop and softtabstop
 set smarttab
@@ -491,7 +491,7 @@ local on_attach = function(client, bufnr)
 end
 
 
-local servers = { 'rnix', 'tsserver', 'rust_analyzer', "clangd" }
+local servers = { 'rnix', 'tsserver', 'rust_analyzer', "clangd", "jdtls" }
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 for _, lsp in pairs(servers) do
@@ -500,14 +500,6 @@ for _, lsp in pairs(servers) do
 		capabilities = capabilities,
 	})
 end
-
-local pid = vim.fn.getpid()
-local omnisharp_bin = "omnisharp"
-require'lspconfig'.omnisharp.setup{
-    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
-	on_attach = on_attach,
-	capabilities = capabilities,
-}
 
 require("mason").setup({
     ui = {
@@ -521,10 +513,32 @@ require("mason").setup({
 require("mason-lspconfig").setup {
     ensure_installed = 
 	{ 
-		"omnisharp",
 		"clangd",
+        "jdtls",
 	},
 }
+
+local home = os.getenv('HOME')
+local workspace_folder = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+
+require'lspconfig'.jdtls.setup{
+    cmd = {
+        'java', 
+        '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+        '-Dosgi.bundles.defaultStartLevel=4',
+        '-Declipse.product=org.eclipse.jdt.ls.core.product',
+        '-Dlog.protocol=true',
+        '-Dlog.level=ALL',
+        '-Xms1g',
+        '--add-modules=ALL-SYSTEM',
+        '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+        '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+        '-jar', home .. '/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+        '-configuration', home .. '/.local/share/nvim/mason/packages/jdtls/config_linux',
+        '-data', workspace_folder,
+    },
+}
+
 
 local dap = require('dap')
 vim.fn.sign_define('DapBreakpoint',			{text='', texthl='', linehl='', numhl=''})
