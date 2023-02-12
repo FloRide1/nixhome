@@ -78,6 +78,7 @@ in {
       cmp-path
       cmp-buffer
       (plugin "hrsh7th/cmp-nvim-lsp-signature-help")
+      nvim-jdtls
 
       # Tests
       (plugin "vim-test/vim-test")
