@@ -465,9 +465,6 @@ require("neotest").setup({
 	},
 })
 
-
-
-
 --[[
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', 
@@ -485,21 +482,6 @@ cmp.setup.cmdline(':',
 --]]
 
 
-local on_attach = function(client, bufnr)
-	vim.api.nvim_exec_autocmds('User', {pattern = 'LspAttached'})
-end
-
-
-local servers = { 'rnix', 'tsserver', 'rust_analyzer', "clangd", "jdtls" }
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-for _, lsp in pairs(servers) do
-	require('lspconfig')[lsp].setup({
-		on_attach = on_attach,
-		capabilities = capabilities,
-	})
-end
-
 require("mason").setup({
     ui = {
         icons = {
@@ -509,32 +491,6 @@ require("mason").setup({
         }
     }
 })
-require("mason-lspconfig").setup {
-    ensure_installed = servers,
-}
-
-local home = os.getenv('HOME')
-local workspace_folder = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
-
-require'lspconfig'.jdtls.setup {
-    cmd = {
-        'java', 
-        '-Declipse.application=org.eclipse.jdt.ls.core.id1',
-        '-Dosgi.bundles.defaultStartLevel=4',
-        '-Declipse.product=org.eclipse.jdt.ls.core.product',
-        '-Dlog.protocol=true',
-        '-Dlog.level=ALL',
-        '-Xms1g',
-        '-javaagent:'.. home .. '/.local/share/nvim/mason/packages/jdtls/lombok.jar',
-        '-jar', home .. '/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
-        '-configuration', home .. '/.local/share/nvim/mason/packages/jdtls/config_linux',
-        '-data', workspace_folder,
-        '--add-modules=ALL-SYSTEM',
-        '--add-opens', 'java.base/java.util=ALL-UNNAMED',
-        '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
-    },
-}
-
 
 
 local dap = require('dap')

@@ -2,16 +2,10 @@ function load(plugin)
     dofile(path .. "/" .. plugin .. ".lua")
 end
 
-local plugins = {
-}
-
 local subdirs = {
+    'lsp',
 }
-
-for _,plugin in ipairs(plugins) do
-    load(plugin)
-end
 
 for _,subdir in ipairs(subdirs) do
-    load(subdir)
+    load(subdir .. "/init")
 end
