@@ -42,7 +42,7 @@ in {
       (plugin "folke/lsp-colors.nvim")
       (plugin "folke/trouble.nvim")
       (plugin "tami5/lspsaga.nvim")
-      # todo-nvim
+      todo-comments-nvim
 
       # Navigation
       nvim-treesitter

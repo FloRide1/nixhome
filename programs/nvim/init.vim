@@ -138,7 +138,7 @@ set shiftwidth=4
 set softtabstop=-1
 
 " Insert spaces instead of tabs
- set expandtab
+set expandtab
 
 " When tabbing manually, use shiftwidth instead of tabstop and softtabstop
 set smarttab
@@ -190,12 +190,12 @@ map _ <C-W>-
 map <M-.> <C-W><
 map <M-,> <C-W>>
 
+" Map ESC to exit terminal mode
+tnoremap <Esc> <C-\><C-n>
+
 " Run make silently, then skip the 'Press ENTER to continue'
 " noremap <leader>m :silent! :make! \| :redraw!<cr>
 " noremap <leader>c :silent! :make! check \| :redraw!<cr>
-
-" Map ESC to exit terminal mode
-tnoremap <Esc> <C-\><C-n>
 
 " nnoremap <silent> <C-n> :Over<CR>
 " nnoremap <silent> <C-s> :Step<CR>
@@ -215,8 +215,10 @@ nnoremap <leader>fg :Telescope live_grep<CR>
 
 " Lspcurrent_buffer_fuzzy_find
 nnoremap <silent> K			<cmd>Lspsaga hover_doc<CR>
+
 nnoremap <silent> gd		<cmd>Lspsaga preview_definition<CR>
 nnoremap <silent> gi		<cmd>Lspsaga lsp_finder<CR>
+nnoremap <silent> gr		<cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <C-k>		<cmd>Lspsaga signature_help<CR>
 
 nnoremap <silent> <C-r>r	<cmd>Lspsaga rename<CR>
@@ -224,7 +226,6 @@ nnoremap <silent> <C-r>r	<cmd>Lspsaga rename<CR>
 nnoremap <silent> <leader>f <cmd>Lspsaga code_action<CR>
 vnoremap <silent> <leader>f <cmd>Lspsaga range_code_action<CR>
 
-nnoremap <silent> gr		<cmd>lua vim.lsp.buf.references()<CR>
 
 nnoremap <silent> <a-cr> <cmd>ToggleTerm direction=float<CR>
 tnoremap <silent> <a-cr> <cmd>ToggleTerm direction=float<CR>
@@ -256,13 +257,9 @@ nnoremap <silent> <space>t <cmd>lua require("neotest").run.run(vim.fn.expand("%"
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " AutoFormat
 augroup autofmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
+    autocmd!
+    autocmd BufWritePre * undojoin | Neoformat
 augroup END
-
-" Clang Format
-" let g:clang_format#detect_style_file = 1
-" let g:clang_format#auto_format = 1
 
 " Git Gutter
 let g:gitgutter_sign_added = '✚'
@@ -284,6 +281,7 @@ set termguicolors
 set completeopt=menu,menuone,noselect
 lua<<EOF
 
+-- Gitsigns
 require('gitsigns').setup {
   signs = {
     add          = {hl = 'GitSignsAdd'   , text = ' ✚', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
@@ -325,8 +323,10 @@ require('gitsigns').setup {
     enable = false
   },
 }
+--
 require("colorizer").setup()
 require("toggleterm").setup()
+require("todo-comments").setup()
 
 require("trouble").setup({ 
 	icons = true,
@@ -397,7 +397,6 @@ require('lspsaga').setup {
 
 local cmp = require("cmp")
 local luasnip = require("luasnip")
--- require("todo-comments").setup()
 
 local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -511,11 +510,7 @@ require("mason").setup({
     }
 })
 require("mason-lspconfig").setup {
-    ensure_installed = 
-	{ 
-		"clangd",
-        "jdtls",
-	},
+    ensure_installed = servers,
 }
 
 local home = os.getenv('HOME')
@@ -661,32 +656,6 @@ end
       end,
     },
   }
-
-require("tokyonight").setup({
-	style = "night",
-
-	transparent = false, 
-	terminal_colors = true, 
-	styles = {
-		comments = { italic = true },
-		keywords = { italic = true },
-		functions = {},
-		variables = {},
-		sidebars = "dark", 
-		floats = "dark",
-	},
-	on_colors = function(colors)
-		colors.gitSigns = {
-			add = "#9ece6a",
-			change = "#bbbb00",
-			delete = "#f7768e"
-		}
-	end,
-	sidebars = { "qf", "help" },
-	day_brightness = 0.3,
-	hide_inactive_statusline = false,
-	dim_inactive = false,
-})
 
 
 EOF
