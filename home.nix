@@ -20,7 +20,9 @@ let
     libreoffice
     inkscape
     zathura
+    evince
     freecad
+    cups
   ];
 
   shellPkgs = with pkgs; [
