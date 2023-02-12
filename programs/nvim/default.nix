@@ -66,6 +66,7 @@ in {
       (plugin "theHamsta/nvim-dap-virtual-text")
 
       # Theme
+      nightfox-nvim
       (plugin "folke/tokyonight.nvim")
       (plugin "Metallum19/purify-vim")
       tender-vim

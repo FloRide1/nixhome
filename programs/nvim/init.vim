@@ -695,6 +695,6 @@ EOF
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Theme
 """"""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme tokyonight-night
+colorscheme carbonfox
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'purify'
