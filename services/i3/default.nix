@@ -74,7 +74,7 @@ in {
         exec ${pkgs.i3lock-fancy}/bin/i3lock-fancy -p -t "System Locked Down"'';
 
       # Screenshot
-      "${modifier}+o" = "exec flameshot gui";
+      "${modifier}+o" = "exec ${pkgs.flameshot}/bin/flameshot gui";
     };
     startup = [
       {
