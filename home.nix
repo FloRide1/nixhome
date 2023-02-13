@@ -39,7 +39,6 @@ let
     fd
     nixfmt
     gnumake
-    clang-tools
 
     # Shell
     any-nix-shell
@@ -109,6 +108,7 @@ in {
     ./programs/zsh/default.nix
     ./programs/git/default.nix
     ./programs/rofi/default.nix
+    ./programs/fish/default.nix
 
     ./services/syncthing/default.nix
     ./services/polybar/default.nix
