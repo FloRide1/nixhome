@@ -1,11 +1,9 @@
 local function load(plugin)
-    dofile(path .. "/lsp/" .. plugin .. ".lua")
+    dofile(path .. "/cmp/" .. plugin .. ".lua")
 end
 
 local plugins = {
-    'lsp',
-    'lsp_jdtls',
-    'lspsaga',
+    'cmp',
 }
 
 for _,plugin in ipairs(plugins) do
