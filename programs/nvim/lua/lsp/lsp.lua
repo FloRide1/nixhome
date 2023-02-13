@@ -1,4 +1,4 @@
-local servers = { 'rnix', 'tsserver', 'rust_analyzer', "clangd", "jdtls" }
+local servers = { 'rnix', 'tsserver', 'rust_analyzer', "clangd", "jdtls", "pyright" }
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local on_attach = function(client, bufnr)
