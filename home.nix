@@ -39,6 +39,7 @@ let
     fd
     nixfmt
     gnumake
+    clang-tools
 
     # Shell
     any-nix-shell
@@ -63,11 +64,17 @@ let
     clang-tools
     zip
     unzip
+    docker-compose
 
     # Man
     clang-manpages
     man-pages
     man-pages-posix
+
+    # Others
+    ansible
+    jdk
+    maven
 
     # Python
     # python39Packages.poetry
