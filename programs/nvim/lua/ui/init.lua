@@ -6,6 +6,7 @@ local plugins = {
     'ui',
     'trouble',
     'gitsigns',
+    'lualine',
 }
 
 for _,plugin in ipairs(plugins) do

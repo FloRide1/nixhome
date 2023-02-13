@@ -38,13 +38,12 @@ in {
     plugins = with pkgs.vimPlugins; [
       # UI
       nvim-colorizer-lua
-      (plugin "vim-airline/vim-airline")
-      (plugin "vim-airline/vim-airline")
       (plugin "kyazdani42/nvim-web-devicons")
       (plugin "folke/lsp-colors.nvim")
       (plugin "folke/trouble.nvim")
       (plugin "tami5/lspsaga.nvim")
       todo-comments-nvim
+      lualine-nvim
 
       # Navigation
       nvim-treesitter

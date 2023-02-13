@@ -1,5 +1,5 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Description:
+" Description:nvim
 "   This is the .vimrc file
 "
 " Maintainer:
@@ -238,7 +238,7 @@ tnoremap <silent> <a-cr> <cmd>ToggleTerm direction=float<CR>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <C-Space> <C-n>
 " Trouble Toogle
-nnoremap <silent> <space>q	<cmd>TroubleToggle<CR>
+nnoremap <silent> <space>q <cmd>TroubleToggle<CR>
 
 
 nnoremap <silent> <c-t> <cmd>lua require("neotest").summary.toggle()<CR>
@@ -274,6 +274,15 @@ set termguicolors
 " Dap
 " let g:dap_virtual_text = v:true
 
+" Luasnip
+imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+
+" -1 for jumping backwards.
+inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+
+snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Lua
@@ -290,5 +299,5 @@ EOF
 " Theme
 """"""""""""""""""""""""""""""""""""""""""""""""""
 colorscheme carbonfox
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'purify'
+" let g:airline_powerline_fonts = 1
+" let g:airline_theme = 'purify'
