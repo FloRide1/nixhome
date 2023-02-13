@@ -3,7 +3,11 @@
 {
   programs.fish = {
     enable = true;
-    plugins = [ ];
+
+    plugins = [{
+      name = "tide";
+      src = pkgs.fishPlugins.tide.src;
+    }];
 
     shellAliases = {
       v = "nvim";
