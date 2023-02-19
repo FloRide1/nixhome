@@ -61,9 +61,10 @@ in {
       nvim-jdtls
 
       # DAP
-      (plugin "mfussenegger/nvim-dap")
-      (plugin "rcarriga/nvim-dap-ui")
-      (plugin "theHamsta/nvim-dap-virtual-text")
+      nvim-dap
+      nvim-dap-ui
+      nvim-dap-virtual-text
+      telescope-dap-nvim
 
       # Theme
       nightfox-nvim
