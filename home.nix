@@ -39,6 +39,7 @@ let
     fd
     nixfmt
     gnumake
+    lldb
 
     # Shell
     any-nix-shell
