@@ -44,6 +44,7 @@ let
     any-nix-shell
     nodejs-16_x
     gcc
+    grc
     curl
     wget
     delta
