@@ -9,9 +9,10 @@ end
 cmp.setup({
     snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
     sources = {
-        { name = 'nvim_lsp' },
         { name = 'path' },
+        { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
+        { name = 'nvim_lua' },
         { name = 'buffer', max_item_count = 5 },
         { name = 'luasnip'}
     },
