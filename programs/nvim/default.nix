@@ -53,13 +53,12 @@ in {
 
       # Git
       (plugin "lewis6991/gitsigns.nvim")
-      # vim-gitgutter
       vim-fugitive
+      # vim-gitgutter
 
       # LSP
       (plugin "neovim/nvim-lspconfig")
-      (plugin "williamboman/mason.nvim")
-      (plugin "williamboman/mason-lspconfig.nvim")
+      nvim-jdtls
 
       # DAP
       (plugin "mfussenegger/nvim-dap")
@@ -74,13 +73,13 @@ in {
 
       # Completion
       nvim-cmp
-      cmp_luasnip
       cmp-nvim-lsp
-      cmp-cmdline
+      cmp-nvim-lua
+      cmp-nvim-lsp-signature-help
       cmp-path
       cmp-buffer
-      (plugin "hrsh7th/cmp-nvim-lsp-signature-help")
-      nvim-jdtls
+      cmp_luasnip
+      cmp-cmdline
 
       # Tests
       (plugin "vim-test/vim-test")
@@ -91,10 +90,12 @@ in {
       (plugin "nvim-neotest/neotest-vim-test")
       (plugin "Issafalcon/neotest-dotnet")
       (plugin "rouge8/neotest-rust")
+      # vim-test
 
       # Others
+      (plugin "williamboman/mason.nvim")
+      (plugin "williamboman/mason-lspconfig.nvim")
       (plugin "akinsho/toggleterm.nvim")
-      (plugin "pantharshit00/vim-prisma")
       glow-nvim
       # ultisnips
       luasnip
@@ -102,9 +103,7 @@ in {
       neoformat
       vim-addon-nix
       vim-toml
-
       # vim-clang-format
-      # vim-test
     ];
 
   };
