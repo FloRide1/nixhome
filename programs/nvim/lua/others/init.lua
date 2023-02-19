@@ -5,6 +5,7 @@ end
 local plugins = {
     'neotest',
     'mason',
+    'which_key',
 }
 
 for _,plugin in ipairs(plugins) do

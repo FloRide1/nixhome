@@ -160,29 +160,11 @@ nnoremap Y y$
 " map ; to :
 noremap ; :
 
-" Tab Map
-noremap <A-1> 1gt
-noremap <A-2> 2gt
-noremap <A-3> 3gt
-noremap <A-4> 4gt
-noremap <A-5> 5gt
-noremap <A-6> 6gt
-noremap <A-7> 7gt
-noremap <A-8> 8gt
-noremap <A-9> 9gt
-noremap <A-t> :tabnew<CR>
-noremap <A-w> :tabclose<CR>
-noremap <A-h> :tabprevious<CR>
-noremap <A-l> :tabnext<CR>
-
-" Split Screen
-nmap <silent> <A-Up> :wincmd k<CR>
-nmap <silent> <A-Down> :wincmd j<CR>
-nmap <silent> <A-Left> :wincmd h<CR>
-nmap <silent> <A-Right> :wincmd l<CR>
-
 " Switch Screen during INSERT Mode
 imap <C-w> <C-o><C-w>
+
+" Map ESC to exit terminal mode
+tnoremap <Esc> <C-\><C-n>
 
 " Map + and _ to Screen size
 map + <C-W>+
@@ -190,70 +172,15 @@ map _ <C-W>-
 map <M-.> <C-W><
 map <M-,> <C-W>>
 
-" Map ESC to exit terminal mode
-tnoremap <Esc> <C-\><C-n>
-
-" Run make silently, then skip the 'Press ENTER to continue'
-" noremap <leader>m :silent! :make! \| :redraw!<cr>
-" noremap <leader>c :silent! :make! check \| :redraw!<cr>
-
-" nnoremap <silent> <C-n> :Over<CR>
-" nnoremap <silent> <C-s> :Step<CR>
-" nnoremap <silent> <C-b> :Break<CR>
-" nnoremap <silent> <C-c> :Clear<CR>
-" nnoremap <silent> <A-c> :Continue<CR>
-
 " Fugitive + Merge
 nmap <leader>hl :Gvdiffsplit!<CR>
 nmap <C-h> :diffget //2<CR>
 nmap <C-l> :diffget //3<CR>
 
-" Telescope + Find
-nnoremap <C-f> :Telescope current_buffer_fuzzy_find<CR>
-nnoremap <leader>ff :Telescope find_files<CR>
-nnoremap <leader>fg :Telescope live_grep<CR>
-
-" Lspcurrent_buffer_fuzzy_find
-nnoremap <silent> K			<cmd>Lspsaga hover_doc<CR>
-
-nnoremap <silent> gd		<cmd>Lspsaga preview_definition<CR>
-nnoremap <silent> gi		<cmd>Lspsaga lsp_finder<CR>
-nnoremap <silent> gr		<cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <C-k>		<cmd>Lspsaga signature_help<CR>
-
-nnoremap <silent> <C-r>r	<cmd>Lspsaga rename<CR>
-
-nnoremap <silent> <leader>f <cmd>Lspsaga code_action<CR>
-vnoremap <silent> <leader>f <cmd>Lspsaga range_code_action<CR>
-
-
-nnoremap <silent> <a-cr> <cmd>ToggleTerm direction=float<CR>
-tnoremap <silent> <a-cr> <cmd>ToggleTerm direction=float<CR>
-
-
-" Dap
-" nnoremap <silent>
-
-" Others
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <C-Space> <C-n>
-" Trouble Toogle
-nnoremap <silent> <space>q <cmd>TroubleToggle<CR>
-
-
-nnoremap <silent> <c-t> <cmd>lua require("neotest").summary.toggle()<CR>
-nnoremap <silent> <space>f <cmd>lua require("neotest").run.run()<CR>
-nnoremap <silent> <space>t <cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>
-
-
-" Ulti Snips
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
+" The rest of the mappings is in which-key.lua file
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin mappings and options
+" Plugin options
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " AutoFormat
 augroup autofmt
