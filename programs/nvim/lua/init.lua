@@ -3,11 +3,11 @@ local function load(plugin)
 end
 
 local subdirs = {
+    'others/',
     'ui/',
     'lsp/',
     'dap/',
     'cmp/',
-    'others/',
 }
 
 for _,subdir in ipairs(subdirs) do
