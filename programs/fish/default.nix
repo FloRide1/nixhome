@@ -41,6 +41,7 @@
       mv = "mv -iv";
       cat = "bat -p";
       ls = "lsd";
+      l = "lsd -al";
       sl = "lsd";
       tree = "lsd --tree";
     };
