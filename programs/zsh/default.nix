@@ -2,7 +2,7 @@
 
 {
   programs.zsh = {
-    enable = true;
+    enable = false;
     enableCompletion = true;
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
@@ -30,9 +30,9 @@
     ];
 
     envExtra = ''
-	LANG=C.UTF-8
-	PATH=$HOME/.local/bin:$PATH
-	'';
+      LANG=C.UTF-8
+      PATH=$HOME/.local/bin:$PATH
+    '';
 
     oh-my-zsh = {
       enable = true;
