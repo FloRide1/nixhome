@@ -107,7 +107,6 @@ in {
   imports = [
     ./programs/alacritty/default.nix
     ./programs/nvim/default.nix
-    ./programs/zsh/default.nix
     ./programs/git/default.nix
     ./programs/rofi/default.nix
     ./programs/fish/default.nix
