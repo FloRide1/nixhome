@@ -12,7 +12,7 @@ let
     jupyter
     vlc
     discord
-    dotnet-sdk
+    dotnet-sdk_7
     arandr
     autorandr
     networkmanagerapplet
