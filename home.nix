@@ -16,7 +16,7 @@ let
     arandr
     autorandr
     networkmanagerapplet
-    kicad-unstable
+    kicad-small
     libreoffice
     inkscape
     zathura
