@@ -97,7 +97,8 @@ in {
       (plugin "williamboman/mason.nvim")
       (plugin "williamboman/mason-lspconfig.nvim")
       (plugin "akinsho/toggleterm.nvim")
-      glow-nvim
+      markdown-preview-nvim
+      # glow-nvim
       # ultisnips
       luasnip
       vimtex
