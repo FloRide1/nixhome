@@ -43,7 +43,7 @@ let
 
     # Shell
     any-nix-shell
-    nodejs-16_x
+    nodejs
     gcc
     grc
     curl
