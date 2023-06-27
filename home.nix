@@ -39,6 +39,7 @@ let
     nixfmt
     gnumake
     lldb
+    texlive.combined.scheme-medium
 
     # Shell
     any-nix-shell
