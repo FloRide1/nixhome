@@ -27,9 +27,7 @@ let
 
   shellPkgs = with pkgs; [
     # Rust 
-    # rustc
-    # cargo
-    # rustfmt
+    cargo-watch
     rust-analyzer
     # clippy
     rustup
