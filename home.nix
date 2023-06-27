@@ -27,11 +27,12 @@ let
 
   shellPkgs = with pkgs; [
     # Rust 
-    rustc
-    cargo
-    rustfmt
+    # rustc
+    # cargo
+    # rustfmt
     rust-analyzer
-    clippy
+    # clippy
+    rustup
 
     # nvim
     xclip
