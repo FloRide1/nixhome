@@ -28,7 +28,6 @@ let
   shellPkgs = with pkgs; [
     # Rust 
     cargo-watch
-    rust-analyzer
     # clippy
     rustup
 
@@ -49,7 +48,6 @@ let
     curl
     wget
     delta
-    rust-analyzer
 
     # Utility
     htop
