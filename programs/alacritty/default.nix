@@ -9,8 +9,22 @@
       # live_config_reload = true;
 
       font = {
-        normal.family = "MesloLGS Nerd Font";
-        normal.style = "Regular";
+        normal = {
+          family = "MesloLGS NF";
+          style = "Regular";
+        };
+        bold = {
+          family = "MesloLGS NF";
+          style = "Bold";
+        };
+        italic = {
+          family = "MesloLGS NF";
+          style = "Italic";
+        };
+        bold_italic = {
+          family = "MesloLGS NF";
+          style = "Bold Italic";
+        };
         size = 10.0;
       };
 
