@@ -47,6 +47,7 @@ in {
 
       # Navigation
       nvim-treesitter
+      nvim-treesitter.withAllGrammars
       telescope-nvim
       which-key-nvim
       vim-eunuch
