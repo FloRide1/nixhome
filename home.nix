@@ -23,6 +23,7 @@ let
     evince
     freecad
     cups
+    prettierd
   ];
 
   shellPkgs = with pkgs; [
@@ -39,6 +40,8 @@ let
     gnumake
     lldb
     texlive.combined.scheme-medium
+    tree-sitter-grammars.tree-sitter-rust
+    cargo-nextest
 
     # Shell
     any-nix-shell
