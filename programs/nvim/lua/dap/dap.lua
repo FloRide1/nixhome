@@ -9,6 +9,7 @@ local dap = require("dap")
 local dapui = require("dapui")
 require("nvim-dap-virtual-text").setup()
 
+
 vim.fn.sign_define('DapBreakpoint',			{text='', texthl='', linehl='', numhl=''})
 vim.fn.sign_define('DapBreakpointRejected',	{text='', texthl='', linehl='', numhl=''})
 vim.fn.sign_define('DapStopped',			{text='', texthl='', linehl='', numhl=''})
@@ -34,9 +35,9 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 end
 
 dap.adapters.lldb = {
-  type = 'executable',
-  command = 'lldb-vscode', -- adjust as needed
-  name = "lldb"
+    type = 'executable',
+    command = 'lldb-vscode', -- adjust as needed
+    name = "lldb"
 }
 
 dap.adapters.cpp = dap.adapters.lldb;
@@ -77,4 +78,16 @@ dap.configurations.cpp = {
 }
 
 dap.configurations.c = dap.configurations.cpp
-dap.configurations.rust = dap.configurations.cpp
+dap.configurations.rust = {
+    {
+        name = "Rust-dap",
+        type = "lldb",
+        request = "launch",
+        program = function()
+            vim.fn.jobstart('cargo build') 
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = true,
+    },
+}

@@ -69,10 +69,10 @@ local keymaps = {
 
     -- Dap
     ["<F5>"] = { "<cmd>lua require('dap').continue()<cr>", "DAP Continue / Start" },
-    ["<S-F5>"] = { "<cmd>lua require('dap').terminate()<cr>", "DAP Stop" },
-    ["<C-F5>"] = { "<cmd>lua require('dap').restart()<cr>", "DAP Restart" },
-    ["<A-F5>"] = { "<cmd>lua require('dap').run_last()<cr>", "DAP Run Last" },
-    ["<F9>"] = { "<cmd>lua require('dap').toggle_breakpoint()<cr>", "DAP Toggle Breakpoint" },
+    ["<F3>"] = { "<cmd>lua require('dap').terminate()<cr>", "DAP Stop" },
+    ["<F4>"] = { "<cmd>lua require('dap').restart()<cr>", "DAP Restart" },
+    ["<S-F5>"] = { "<cmd>lua require('dap').run_last()<cr>", "DAP Run Last" },
+    ["<F8>"] = { "<cmd>lua require('dap').toggle_breakpoint()<cr>", "DAP Toggle Breakpoint" },
     ["<F10>"] = { "<cmd>lua require('dap').step_over()<cr>", "DAP Step Over" },
     ["<F11>"] = { "<cmd>lua require('dap').step_into()<cr>", "DAP Step Into" },
     ["<S-F11>"] = { "<cmd>lua require('dap').step_out()<cr>", "DAP Step Out" },
