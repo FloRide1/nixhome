@@ -3,6 +3,7 @@ local function load(plugin)
 end
 
 local plugins = {
+    'telescope-nvim',
     'neotest',
     'mason',
     'which_key',
