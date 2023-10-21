@@ -42,6 +42,7 @@ let
     texlive.combined.scheme-medium
     tree-sitter-grammars.tree-sitter-rust
     cargo-nextest
+    nodePackages.volar
 
     # Shell
     any-nix-shell
