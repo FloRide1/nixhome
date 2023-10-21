@@ -81,7 +81,6 @@ set wrap
 " set textwidth=79
 
 " Disable preview window on completion
-set completeopt=longest,menuone
 
 " Enables syntax highlighting
 syntax on
