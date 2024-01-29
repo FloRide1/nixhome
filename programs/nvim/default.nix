@@ -27,6 +27,7 @@ in {
   programs.neovim = {
     enable = true;
     vimAlias = true;
+    defaultEditor = true;
 
     extraConfig = ''
       lua path = os.getenv('HOME') .. "/${nvim_lua}"
