@@ -2,6 +2,11 @@
 
 let
   desktopPkgs = with pkgs; [
+    # Wayland
+    mako
+    wl-clipboard
+    shotman
+
     spotify
     lxrandr
     i3lock-fancy
@@ -24,6 +29,7 @@ let
     freecad
     cups
     prettierd
+    wdisplays
   ];
 
   shellPkgs = with pkgs; [
@@ -38,7 +44,7 @@ let
     fd
     nixfmt
     gnumake
-    lldb
+    ### lldb
     texlive.combined.scheme-medium
     tree-sitter-grammars.tree-sitter-rust
     cargo-nextest
@@ -81,7 +87,7 @@ let
 
     # Python
     # python39Packages.poetry
-    (python39.withPackages (ps: with ps; [ pip pandas ]))
+    # (python39.withPackages (ps: with ps; [ pip pandas ]))
   ];
 
   npmPkgs = with pkgs.nodePackages; [
@@ -112,9 +118,11 @@ in {
     ./programs/git/default.nix
     ./programs/rofi/default.nix
     ./programs/fish/default.nix
+    ./programs/waybar/default.nix
 
     ./services/syncthing/default.nix
     ./services/polybar/default.nix
+    ./services/wayland/default.nix
   ];
 
   systemd.user.services.mpris-proxy = {
@@ -124,6 +132,6 @@ in {
     Install.WantedBy = [ "default.target" ];
   };
 
-  xsession.windowManager.i3 =
-    import ./services/i3/default.nix { inherit pkgs lib; };
+  # xsession.windowManager.i3 =
+  # import ./services/i3/default.nix { inherit pkgs lib; };
 }
