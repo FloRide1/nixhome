@@ -1,6 +1,8 @@
 local home = os.getenv('HOME')
 local workspace_folder = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 
+local launcher_jar_path = vim.fn.globpath(home .. '/.local/share/nvim/mason/packages/jdtls/plugins', 'org.eclipse.equinox.launcher_*.jar', false, true)[1]
+
 require'lspconfig'.jdtls.setup {
     cmd = {
         'java', 
@@ -11,7 +13,7 @@ require'lspconfig'.jdtls.setup {
         '-Dlog.level=ALL',
         '-Xms1g',
         '-javaagent:'.. home .. '/.local/share/nvim/mason/packages/jdtls/lombok.jar',
-        '-jar', home .. '/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+        '-jar', launcher_jar_path,
         '-configuration', home .. '/.local/share/nvim/mason/packages/jdtls/config_linux',
         '-data', workspace_folder,
         '--add-modules=ALL-SYSTEM',
