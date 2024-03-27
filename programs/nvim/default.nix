@@ -89,7 +89,7 @@ in {
       (plugin "nvim-lua/plenary.nvim")
       (plugin "nvim-neotest/neotest-plenary")
       (plugin "antoinemadec/FixCursorHold.nvim")
-      (plugin "nvim-neotest/neotest")
+      neotest
       (plugin "nvim-neotest/neotest-vim-test")
       (plugin "Issafalcon/neotest-dotnet")
       (plugin "rouge8/neotest-rust")
