@@ -69,7 +69,6 @@ let
     feh
     pulsemixer
     ranger
-    rnix-lsp
     clang-tools
     zip
     unzip
