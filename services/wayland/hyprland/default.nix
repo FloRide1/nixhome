@@ -1,5 +1,5 @@
 { config, inputs, lib, pkgs, ... }: {
-  imports = [ ./config.nix ./hyprpaper.nix ];
+  imports = [ ./config.nix ./hyprpaper.nix ./hypridle.nix ];
 
   home.sessionVariables = {
     # upscale steam

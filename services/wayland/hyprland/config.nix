@@ -13,8 +13,10 @@ let
     alsa = "${pkgs.alsa-utils}/bin/amixer -q sset Master";
     playerctl = "${pkgs.playerctl}/bin/playerctl";
     xwaylandvideobridge = "${pkgs.xwaylandvideobridge}/bin/xwaylandvideobridge";
+    hypridle = "${pkgs.hypridle}/bin/hypridle";
   in ''
     exec-once = ${swaylock}
+    exec-once = ${hypridle}
 
     exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     exec-once = ${xwaylandvideobridge}
