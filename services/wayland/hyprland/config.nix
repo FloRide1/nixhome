@@ -9,19 +9,23 @@ let
       ${lib.getExe pkgs.grim} -g "$(${
         lib.getExe pkgs.slurp
       })" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
-    light = "${pkgs.light}/bin/light";
+    light = "${pkgs.brightnessctl}/bin/brightnessctl";
     alsa = "${pkgs.alsa-utils}/bin/amixer -q sset Master";
     playerctl = "${pkgs.playerctl}/bin/playerctl";
+    xwaylandvideobridge = "${pkgs.xwaylandvideobridge}/bin/xwaylandvideobridge";
   in ''
     exec-once = ${swaylock}
+
+    exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    exec-once = ${xwaylandvideobridge}
 
     bind = $mainMod, Return, exec, ${term}
     bind = $mainMod, D, exec, ${dmenu}
     bind = $mainMod, X, exec, ${swaylock}
     bind = , PRINT, exec, ${screenshot}
 
-    binde = , XF86MonBrightnessDown, exec, ${light} -U 5
-    binde = , XF86MonBrightnessUp, exec, ${light} -A 5
+    binde = , XF86MonBrightnessDown, exec, ${light} set 5%-
+    binde = , XF86MonBrightnessUp, exec, ${light} set +5%
 
     binde = , XF86AudioRaiseVolume, exec, ${alsa} 1%+
     binde = , XF86AudioLowerVolume, exec, ${alsa} 1%-
