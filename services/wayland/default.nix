@@ -8,6 +8,14 @@
     grim
     slurp
 
+    pipewire
+    wireplumber
+
+    xwaylandvideobridge
+
+    xdg-desktop-portal
+    xdg-desktop-portal-hyprland
+
     # idle/lock
     swaybg
 
