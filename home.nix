@@ -21,7 +21,7 @@ let
     arandr
     autorandr
     networkmanagerapplet
-    kicad-small
+    kicad
     libreoffice
     inkscape
     zathura
@@ -46,6 +46,7 @@ let
     gnumake
     ### lldb
     texlive.combined.scheme-medium
+    tree-sitter
     tree-sitter-grammars.tree-sitter-rust
     cargo-nextest
     nodePackages.volar
