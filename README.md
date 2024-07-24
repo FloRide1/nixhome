@@ -3,6 +3,7 @@
 ## By Florian FloRide Reimat
 
 This is my nix home-manager
+**This is deprecated please look [here](https://github.com/FloRide1/dotnix) for my current configuration**
 
 ## Install
 
